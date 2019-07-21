@@ -57,26 +57,34 @@
                         <!-- /.box-header -->
                         <div class="box-body table-responsive no-padding">
                             <table class="table table-hover">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>手机号</th>
-                                    <th>邮箱</th>
-                                    <th>更新时间</th>
-                                    <th>操作</th>
-                                </tr>
-                                <tr>
-                                    <td>183</td>
-                                    <td>John Doe</td>
-                                    <td>11-7-2014</td>
-                                    <td><span class="label label-success">Approved</span></td>
-                                    <td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
-                                    <td>
-                                        <button type="button" class="btn btn-sm btn-default" ><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;
-                                        <a href="/user/form?id=' + row.id + '" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
-                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-danger"><i class="fa fa-trash-o"></i> 删除</button>
-                                    </td>
-                                </tr>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>用户名</th>
+                                        <th>手机号</th>
+                                        <th>邮箱</th>
+                                        <th>更新时间</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${tbUsers}" var="user">
+                                        <tr>
+                                            <td>${user.id}</td>
+                                            <td>${user.username}</td>
+                                            <td>${user.phone}</td>
+                                            <td>${user.email}</td>
+                                            <td><fmt:formatDate value="${user.updated}" pattern="yyyy-MM-dd" /></td>
+                                            <td>
+                                                <button type="button" class="btn btn-sm btn-default" ><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;
+                                                <a href="/user/form?id=' + row.id + '" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
+                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-danger"><i class="fa fa-trash-o"></i> 删除</button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+
+                                </tbody>
+
 
                             </table>
 
