@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sys" tagdir="/WEB-INF/tags/sys" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,9 +108,9 @@
                             <h3 class="box-title">用户列表</h3>
                         </div>
 
-                        <div class="box-body">
+                        <div class="box-body"><%--App.deleteMulti('/user/delete')--%>
                             <a href="/user/form" type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btn-sm btn-default" onclick="App.deleteMulti('/user/delete')"><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-sm btn-default" onclick="deleteMulti()"><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
                             <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-download"></i> 导入</a>&nbsp;&nbsp;&nbsp;
                             <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-upload"></i> 导出</a>&nbsp;&nbsp;&nbsp;
                             <button type="button" class="btn btn-sm btn-primary" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"><i class="fa fa-search"></i> 搜索</button>
@@ -138,7 +139,7 @@
                                         <tr>
                                             <td>
                                                 <label>
-                                                    <input type="checkbox" class="minimal" />
+                                                    <input type="checkbox" class="minimal" id="${user.id}"/>
                                                 </label>
                                             </td>
                                             <td>${user.id}</td>
@@ -190,17 +191,36 @@
 
     <%-- copyright--%>
     <jsp:include page="../includes/copyright.jsp"/>
+
+
 </div>
 
 <%--footer--%>
 <jsp:include page="../includes/footer.jsp"/>
-
+<%-- 自定义模态框标签--%>
+<sys:modal message="第一个模态框标签" opts="confirm" url="/user/delete"/>
 </body>
 </html>
 <script>
-    $(function () {
-        $('input[type="checkbox"].icheck_master').on('ifChecked',function () {
-            console.log("check");
-        });
-    })
+
+
+
+ /**
+  *批量删除
+  */
+ function deleteMulti() {
+     var _checkBoxes = App.getCheckBoxList();
+     var idArray = new Array();
+     //将选中元素的id放入数组中
+     _checkBoxes.each(function () {
+         var _id = $(this).attr("id");
+         if($(this).is(":checked") && _id != null && _id != "undefined" ){
+             idArray.push($(this).attr("id"));
+         }
+     });
+     if (idArray.length === 0) {
+         $("#modal-default").modal("show");
+     }
+     console.log(idArray);
+ }
 </script>
