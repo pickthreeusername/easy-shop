@@ -17,7 +17,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 
         TbUser user = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
         if (user == null) {
-            httpServletResponse.sendRedirect("login");
+            httpServletResponse.sendRedirect("/login");
         }
         return true;
     }

@@ -25,4 +25,70 @@
         WHERE
           a.email = #{email}
     </select>
+
+    <insert id="insert">
+        INSERT INTO `tb_user` (
+            `username`,
+            `password`,
+            `phone`,
+            `email`,
+            `created`,
+            `updated`
+            )
+        VALUES
+            (
+            #{username},
+            #{password},
+            #{phone},
+            #{email},
+            #{created},
+            #{updated}
+            );
+    </insert>
+
+    <update id="update">
+        UPDATE `tb_user`
+        SET  `username` = #{username},
+             `password` = #{password},
+             `phone` = #{phone},
+             `email` = #{email},
+             `updated` = #{updated}
+        WHERE
+            (`id` = #{id});
+    </update>
+
+    <delete id="delete" >
+        DELETE
+        FROM
+            tb_User
+        WHERE
+            id = #{id}
+    </delete>
+
+    <select id="getUserById" resultType="TbUser">
+        SELECT
+        <include refid="tbUserColumns"/>
+        FROM
+        tb_user AS a
+        WHERE
+        a.id = #{id}
+    </select>
+
+    <select id="search" resultType="TbUser">
+        SELECT
+            <include refid="tbUserColumns"/>
+        FROM
+            tb_user AS a
+        <where>
+            <if test='username != null and username !=""'>
+                a.username LIKE CONCAT('%', #{username}, '%')
+            </if>
+            <if test='phone != null and phone !=""'>
+                a.phone LIKE CONCAT('%', #{phone}, '%')
+            </if>
+            <if test='email != null and email !=""'>
+                a.email LIKE CONCAT('%', #{email}, '%')
+            </if>
+        </where>
+    </select>
 </mapper>

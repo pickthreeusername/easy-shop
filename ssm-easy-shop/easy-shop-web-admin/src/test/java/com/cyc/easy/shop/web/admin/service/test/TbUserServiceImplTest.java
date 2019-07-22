@@ -9,6 +9,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.DigestUtils;
 
+import java.util.Date;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -23,6 +24,29 @@ public class TbUserServiceImplTest {
             System.out.println(user);
         }
 
+    }
+    @Test
+    public void  testInsert() {
+        TbUser user = new TbUser();
+        user.setEmail("test@123.com");
+        user.setUsername("test");
+        user.setPassword("12332");
+        user.setCreated(new Date());
+        user.setUpdated(new Date());
+//        int row = userService.insert(user);
+//        System.out.println(row);
+    }
+    @Test
+    public void testUpdate() {
+        TbUser user = new TbUser();
+        user.setEmail("test@123.com");
+        user.setUsername("test UPDATE");
+        user.setPassword("12332");
+        user.setCreated(new Date());
+        user.setUpdated(new Date());
+        user.setId(37L);
+//        int row = userService.update(user);
+//        System.out.println(row);
     }
     @Test
     public void testMD5(){
