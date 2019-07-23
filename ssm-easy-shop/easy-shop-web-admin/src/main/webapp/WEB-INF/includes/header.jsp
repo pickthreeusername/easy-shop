@@ -29,3 +29,20 @@ folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="/static/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <!-- iCheck plugin skins -->
 <link rel="stylesheet" href="/static/assets/plugins/iCheck/all.css"/>
+
+<%-- 详情模态框--%>
+<div class="modal fade" id="modal-detail">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn_modal_confirm" data-dismiss="modal">确定</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

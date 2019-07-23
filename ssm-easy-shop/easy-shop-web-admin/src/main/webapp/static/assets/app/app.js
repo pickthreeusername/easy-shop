@@ -155,7 +155,21 @@ var App = function () {
         });
 
     };
-
+    /**
+     * 查看详情
+     */
+    var handlerDetailInfo = function(detailUrl) {
+        $.ajax({
+            "url":detailUrl,
+            "type":"GET",
+            "dataType":"html",
+            success:function (data) {
+                $("#modal-detail").modal("show");
+                var message = $("#modal-detail").find(".modal-body");
+                message.html(data);
+            }
+        })
+    }
     return{
         init:function () {
             handlerInitCheckbox();
@@ -169,6 +183,10 @@ var App = function () {
         },
         initDataTables: function (url, columns) {
             handlerInitDataTables(url, columns);
+
+        },
+        detailInfo: function (detailUrl) {
+            handlerDetailInfo(detailUrl);
 
         }
 

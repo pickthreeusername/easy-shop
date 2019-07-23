@@ -122,4 +122,12 @@ public class UserController {
         return result;
     }
 
+    @RequestMapping(value = "detail", method = RequestMethod.GET)
+    public String detail(TbUser user, Model model) {
+        System.out.println("detail..........");
+        System.out.println(user.toString());
+        model.addAttribute("user", user);
+        return "user_detail";
+    }
+
 }
