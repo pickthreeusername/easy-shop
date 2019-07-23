@@ -64,7 +64,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
-    public String sava(TbUser user, RedirectAttributes redirectAttributes, Model model) {
+    public String save(TbUser user, RedirectAttributes redirectAttributes, Model model) {
         BaseResult result = userService.save(user);
         //响应成功，重定向到用户列表页面
         if (result.getStatus() == BaseResult.STATUS_SUCCESS) {
