@@ -91,4 +91,32 @@
             </if>
         </where>
     </select>
+
+    <delete id="deleteMulti" >
+        DELETE
+        FROM
+            tb_User
+        WHERE
+            id
+        in
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="page" resultType="TbUser" parameterType="java.util.Map">
+        SELECT
+        <include refid="tbUserColumns"/>
+        FROM
+        tb_user AS a
+        LIMIT
+        #{start},#{length}
+    </select>
+
+    <select id="count" resultType="java.lang.Integer" >
+        SELECT
+            COUNT(*)
+        FROM
+            tb_user
+    </select>
 </mapper>

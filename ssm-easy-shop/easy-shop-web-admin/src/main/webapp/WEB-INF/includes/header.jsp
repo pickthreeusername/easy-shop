@@ -25,5 +25,7 @@
 <!-- AdminLTE Skins. Choose a skin from the css/skins
 folder instead of downloading all of them to reduce the load. -->
 <link rel="stylesheet" href="/static/assets/css/skins/_all-skins.min.css">
+<!-- DataTables -->
+<link rel="stylesheet" href="/static/assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <!-- iCheck plugin skins -->
 <link rel="stylesheet" href="/static/assets/plugins/iCheck/all.css"/>

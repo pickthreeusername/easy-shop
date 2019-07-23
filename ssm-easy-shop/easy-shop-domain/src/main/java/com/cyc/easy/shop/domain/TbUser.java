@@ -1,24 +1,14 @@
 package com.cyc.easy.shop.domain;
 
-import java.util.Date;
+import com.cyc.easy.shop.commons.persistence.BaseEntity;
 
-public class TbUser {
+public class TbUser extends BaseEntity {
 
-    private Long id;
     private String username;
     private String password;
     private String email;
     private String phone;
-    private Date updated;
-    private Date created;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -52,32 +42,13 @@ public class TbUser {
         this.phone = phone;
     }
 
-    public Date getUpdated() {
-        return updated;
-    }
-
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
-
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
     @Override
     public String toString() {
         return "TbUser{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
+                "username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
-                ", updated=" + updated +
-                ", created=" + created +
                 '}';
     }
 }

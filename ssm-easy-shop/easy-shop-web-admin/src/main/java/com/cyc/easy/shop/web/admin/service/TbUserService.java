@@ -1,6 +1,7 @@
 package com.cyc.easy.shop.web.admin.service;
 
 import com.cyc.easy.shop.commons.dto.BaseResult;
+import com.cyc.easy.shop.commons.dto.PageInfo;
 import com.cyc.easy.shop.domain.TbUser;
 
 import java.util.List;
@@ -25,4 +26,10 @@ public interface TbUserService {
     public TbUser getUserById(long id);
 
     public List<TbUser> search(TbUser tbUser);
+
+    public void deleteMulti(String[] ids);
+
+    public PageInfo<TbUser> page(int start, int length, int draw);
+
+    public Integer count();
 }

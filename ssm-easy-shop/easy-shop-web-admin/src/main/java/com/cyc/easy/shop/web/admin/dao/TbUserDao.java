@@ -4,6 +4,8 @@ import com.cyc.easy.shop.domain.TbUser;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
+
 @Repository
 public interface TbUserDao {
     /**
@@ -50,4 +52,19 @@ public interface TbUserDao {
      * @return
      */
     public List<TbUser> search(TbUser tbUser);
+
+    /**
+     * 批量删除用户
+     * @param ids
+     */
+    public void deleteMulti(String[] ids);
+
+    /**
+     * 用户分页
+     * @param map
+     * @return
+     */
+    public List<TbUser> page(Map<String, Integer> map);
+
+    public Integer count();
 }

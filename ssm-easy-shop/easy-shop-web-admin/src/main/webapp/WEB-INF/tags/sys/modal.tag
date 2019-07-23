@@ -14,7 +14,7 @@
                 <h4 class="modal-title">${title == null? "温馨提示":title}</h4>
             </div>
             <div class="modal-body">
-                <p>${message}&hellip;</p>
+                <p id="modal_message">${message}&hellip;</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
@@ -25,15 +25,3 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-<script>
-    $(function () {
-        $("#btn_modal_confirm").bind("click",function () {
-            <c:if test='${opts == null or opts == "info"}'>
-                $("#modal-default").modal("hide");
-            </c:if>
-            <c:if test='${opts == null or opts == "confirm"}'>
-                console.log("${url}");
-            </c:if>
-        })
-    })
-</script>

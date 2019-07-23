@@ -110,15 +110,15 @@
 
                         <div class="box-body"><%--App.deleteMulti('/user/delete')--%>
                             <a href="/user/form" type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btn-sm btn-default" onclick="deleteMulti()"><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-sm btn-default" onclick="App.deleteMulti('/user/delete')"><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
                             <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-download"></i> 导入</a>&nbsp;&nbsp;&nbsp;
                             <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-upload"></i> 导出</a>&nbsp;&nbsp;&nbsp;
                             <button type="button" class="btn btn-sm btn-primary" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"><i class="fa fa-search"></i> 搜索</button>
                         </div>
 
                         <!-- /.box-header -->
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover">
+                        <div class="box-body table-responsive">
+                            <table id="dataTable" class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>
@@ -135,7 +135,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${tbUsers}" var="user">
+                            <%--        <c:forEach items="${tbUsers}" var="user">
                                         <tr>
                                             <td>
                                                 <label>
@@ -153,7 +153,7 @@
                                                 <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-danger"><i class="fa fa-trash-o"></i> 删除</button>
                                             </td>
                                         </tr>
-                                    </c:forEach>
+                                    </c:forEach>--%>
 
                                 </tbody>
 
@@ -198,29 +198,32 @@
 <%--footer--%>
 <jsp:include page="../includes/footer.jsp"/>
 <%-- 自定义模态框标签--%>
-<sys:modal message="第一个模态框标签" opts="confirm" url="/user/delete"/>
+<sys:modal />
 </body>
 </html>
 <script>
+$(function () {
+var columns = [
+    {
+        "data": function (row, type, val, meta) {
+            return '<input id="' + row.id + '" type="checkbox" class="minimal" />';
+        }
+    },
+    {"data": "id"},
+    {"data": "username"},
+    {"data": "phone"},
+    {"data": "email"},
+    {"data": "updated"},
+    {
+        "data": function (row, type, val, meta) {
+            return '<a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-search"></i> 查看</a>&nbsp;&nbsp;&nbsp;' +
+                '<a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;' +
+                '<a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> 删除</a>'
+        }
+    }
+];
+    App.initDataTables("/user/page", columns);
+})
 
 
-
- /**
-  *批量删除
-  */
- function deleteMulti() {
-     var _checkBoxes = App.getCheckBoxList();
-     var idArray = new Array();
-     //将选中元素的id放入数组中
-     _checkBoxes.each(function () {
-         var _id = $(this).attr("id");
-         if($(this).is(":checked") && _id != null && _id != "undefined" ){
-             idArray.push($(this).attr("id"));
-         }
-     });
-     if (idArray.length === 0) {
-         $("#modal-default").modal("show");
-     }
-     console.log(idArray);
- }
 </script>

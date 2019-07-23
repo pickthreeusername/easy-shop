@@ -1,6 +1,7 @@
 package com.cyc.easy.shop.web.admin.service.impl;
 
 import com.cyc.easy.shop.commons.dto.BaseResult;
+import com.cyc.easy.shop.commons.dto.PageInfo;
 import com.cyc.easy.shop.domain.TbUser;
 import com.cyc.easy.shop.web.admin.dao.TbUserDao;
 import com.cyc.easy.shop.web.admin.service.TbUserService;
@@ -10,7 +11,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 @Service
 public class TbUserServiceImpl implements TbUserService {
     @Autowired
@@ -70,6 +74,31 @@ public class TbUserServiceImpl implements TbUserService {
     @Override
     public List<TbUser> search(TbUser tbUser) {
         return tbUserDao.search(tbUser);
+    }
+
+    @Override
+    public void deleteMulti(String[] ids) {
+        tbUserDao.deleteMulti(ids);
+    }
+
+    @Override
+    public PageInfo<TbUser> page(int start, int length, int draw) {
+        Map<String, Integer> params = new HashMap<String, Integer>();
+        params.put("start", start);
+        params.put("length", length);
+
+        int count = tbUserDao.count();
+
+        PageInfo<TbUser> result = new PageInfo<TbUser>();
+        result.setData(tbUserDao.page(params));
+        result.setDraw(draw);
+        result.setRecordsFiltered(count);
+        result.setRecordsTotal(count);
+        return result;
+    }
+    @Override
+    public Integer count(){
+        return tbUserDao.count();
     }
 
     /**
