@@ -29,7 +29,7 @@ public interface TbUserService {
 
     public void deleteMulti(String[] ids);
 
-    public PageInfo<TbUser> page(int start, int length, int draw);
+    public PageInfo<TbUser> page(int start, int length, int draw, TbUser user);
 
-    public Integer count();
+
 }

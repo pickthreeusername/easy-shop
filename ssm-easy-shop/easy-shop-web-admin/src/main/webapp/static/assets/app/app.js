@@ -34,6 +34,62 @@ var App = function () {
             }
         });
     }
+
+    /**
+     * 初始化DataTables
+     */
+    var handlerInitDataTables = function (url, columns) {
+        var _dataTable = $("#dataTable").DataTable({
+            "paging": true,
+            "ordering": false,
+            "info": true,
+            "searching": false,
+            "processing": true,
+            "serverSide": true,
+            "lengthChange": false,
+            "deferRender": true,
+            "ajax": {
+                "url": url
+            },
+            "columns": columns,
+            // 表格重绘的回调函数
+            "drawCallback": function (settings) {
+                handlerInitCheckbox();
+                handlerSelectAll();
+            },
+
+            "headerCallback":function( thead, data, start, end, display ) {
+                //将表头第一个checkbox默认为uncheck状态
+                $(thead).find('th').eq(0).iCheck("uncheck");
+            },
+            // 国际化
+            "language": {
+                "sProcessing": "处理中...",
+                "sLengthMenu": "显示 _MENU_ 项结果",
+                "sZeroRecords": "没有匹配结果",
+                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
+                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+                "sInfoPostFix": "",
+                "sSearch": "搜索:",
+                "sUrl": "",
+                "sEmptyTable": "表中数据为空",
+                "sLoadingRecords": "载入中...",
+                "sInfoThousands": ",",
+                "oPaginate": {
+                    "sFirst": "首页",
+                    "sPrevious": "上页",
+                    "sNext": "下页",
+                    "sLast": "末页"
+                }
+
+            }
+
+
+        });
+        return _dataTable;
+
+    };
     /**
      * 批量删除
      */
@@ -60,101 +116,55 @@ var App = function () {
         $("#modal_message").html(message);
         $("#modal-default").modal("show");
 
-        if (_ifBind == false){
+       /* if (_ifBind == false){
             _ifBind = true;
-            $("#btn_modal_confirm").on("click",function () {
-                modalBtnClick(idArray,deleteUrl);
-            });
+            $("#btn_modal_confirm").on("click", function (url) {
+                modalBtnClick(url);
+            })
+        }*/
+        $("#btn_modal_ok").off("click");
+        $("#btn_modal_ok").on("click", function () {
+            modalBtnClick(url);
+        })
+
+    }
+     //确定按钮的点击事件
+    var modalBtnClick = function (url) {
+        console.log("test binding....");
+        //没选择数据,隐藏模态框
+        if (idArray.length === 0){
+            $("#modal-default").modal("hide");
         }
-        //确定按钮的点击事件
-        function modalBtnClick() {
-            //没选择数据,隐藏模态框
-            if (idArray.length === 0){
-                $("#modal-default").modal("hide");
-            }
 
-            else{
-                $.ajax({
-                    url:url,
-                    type:"post",
-                    data:{"ids":idArray.toString()},
-                    dataType:"JSON",
-                    success:function (result) {
-                        console.log(result);
-                        //插入提示信息
-                        $("#modal_message").html(result.message);
-                        if (result.status === 200) {
-                            idArray = new Array();
-                            $("#modal-default").modal("show");
-                            window.setTimeout("window.location.reload()", 500);
-                            //提示删除成功
+        else{
+            $.ajax({
+                url:url,
+                type:"post",
+                data:{"ids":idArray.toString()},
+                dataType:"JSON",
+                success:function (result) {
+                    console.log(result);
+                    //插入提示信息
+                    $("#modal_message").html(result.message);
+                    if (result.status === 200) {
+                        idArray = new Array();
+                        $("#modal-default").modal("show");
+                        window.setTimeout("window.location.reload()", 500);
+                        //提示删除成功
 
-
-                        }
-                        else{
-                            //隐藏确定按钮
-                            $("#btn_modal_confirm").hide();
-                        }
 
                     }
-                });
-            }
+                    else{
+                        //隐藏确定按钮
+                        $("#btn_modal_confirm").hide();
+                    }
+
+                }
+            });
         }
     }
 
-    /**
-     * 初始化DataTables
-     */
-    var handlerInitDataTables = function (url, columns) {
-        $("#dataTable").dataTable({
-            "paging": true,
-            "ordering": false,
-            "info": true,
-            "searching": false,
-            "processing": true,
-            "serverSide": true,
-            "lengthChange": false,
-            "ajax": {
-                "url": url,
-            },
-            "columns": columns,
-            // 表格重绘的回调函数
-            "drawCallback": function (settings) {
-                handlerInitCheckbox();
-                handlerSelectAll();
-            },
 
-            "headerCallback":function( thead, data, start, end, display ) {
-                //将表头第一个checkbox默认为uncheck状态
-                $(thead).find('th').eq(0).iCheck("uncheck");
-             },
-            // 国际化
-            "language": {
-                "sProcessing": "处理中...",
-                "sLengthMenu": "显示 _MENU_ 项结果",
-                "sZeroRecords": "没有匹配结果",
-                "sInfo": "显示第 _START_ 至 _END_ 项结果，共 _TOTAL_ 项",
-                "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
-                "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
-                "sInfoPostFix": "",
-                "sSearch": "搜索:",
-                "sUrl": "",
-                "sEmptyTable": "表中数据为空",
-                "sLoadingRecords": "载入中...",
-                "sInfoThousands": ",",
-                "oPaginate": {
-                    "sFirst": "首页",
-                    "sPrevious": "上页",
-                    "sNext": "下页",
-                    "sLast": "末页"
-                }
-
-            }
-
-
-        });
-
-    };
     /**
      * 查看详情
      */
@@ -182,7 +192,7 @@ var App = function () {
             deleteMulti(url);
         },
         initDataTables: function (url, columns) {
-            handlerInitDataTables(url, columns);
+            return handlerInitDataTables(url, columns);
 
         },
         detailInfo: function (detailUrl) {

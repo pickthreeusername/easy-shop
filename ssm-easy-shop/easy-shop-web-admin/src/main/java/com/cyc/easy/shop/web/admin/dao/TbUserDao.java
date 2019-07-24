@@ -64,7 +64,7 @@ public interface TbUserDao {
      * @param map
      * @return
      */
-    public List<TbUser> page(Map<String, Integer> map);
+    public List<TbUser> page(Map<String, Object> map);
 
-    public Integer count();
+    public Integer count(TbUser user);
 }

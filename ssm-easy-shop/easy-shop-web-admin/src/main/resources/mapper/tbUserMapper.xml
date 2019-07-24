@@ -109,6 +109,17 @@
         <include refid="tbUserColumns"/>
         FROM
         tb_user AS a
+        <where>
+            <if test='tbUser.username != null and tbUser.username !=""'>
+                a.username LIKE CONCAT('%',#{tbUser.username},'%')
+            </if>
+            <if test='tbUser.phone != null and tbUser.phone !=""'>
+                a.phone LIKE CONCAT('%',#{tbUser.phone},'%')
+            </if>
+            <if test='tbUser.email != null and tbUser.email !=""'>
+                a.email LIKE CONCAT('%',#{tbUser.email},'%')
+            </if>
+        </where>
         LIMIT
         #{start},#{length}
     </select>
@@ -117,6 +128,17 @@
         SELECT
             COUNT(*)
         FROM
-            tb_user
+            tb_user a
+        <where>
+            <if test='username != null and username !=""'>
+                a.username LIKE CONCAT('%',#{username},'%')
+            </if>
+            <if test='phone != null and phone !=""'>
+                a.phone LIKE CONCAT('%',#{phone},'%')
+            </if>
+            <if test='email != null and email !=""'>
+                a.email LIKE CONCAT('%',#{email},'%')
+            </if>
+        </where>
     </select>
 </mapper>

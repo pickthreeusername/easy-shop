@@ -57,45 +57,45 @@
                             <h3 class="box-title">高级搜索</h3>
                         </div>
 
-                        <div class="box-body">
-                            <form:form class="row form-horizontal" modelAttribute="tbUser" action="/user/search" method="get">
-                                <div class="col-xs-12 col-sm-3">
-                                    <div class="form-group">
-                                        <label for="username" class="col-sm-4 control-label">姓名</label>
+                        <div class="box-body form-horizontal row">
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="form-group">
+                                    <label for="username" class="col-sm-4 control-label">姓名</label>
 
-                                        <div class="col-sm-8">
-                                            <form:input path="username" class="form-control" placeholder="姓名" />
-                                        </div>
+                                    <div class="col-sm-8">
+                                        <input id="username" class="form-control" placeholder="姓名" />
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-3">
-                                    <div class="form-group">
-                                        <label for="email" class="col-sm-4 control-label">邮箱</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-4 control-label">邮箱</label>
 
-                                        <div class="col-sm-8">
-                                            <form:input path="email" class="form-control" placeholder="邮箱" />
-                                        </div>
+                                    <div class="col-sm-8">
+                                        <input id="email" class="form-control" placeholder="邮箱" />
                                     </div>
                                 </div>
-                                <div class="col-xs-12 col-sm-3">
-                                    <div class="form-group">
-                                        <label for="phone" class="col-sm-4 control-label">手机</label>
+                            </div>
+                            <div class="col-xs-12 col-sm-3">
+                                <div class="form-group">
+                                    <label for="phone" class="col-sm-4 control-label">手机</label>
 
-                                        <div class="col-sm-8">
-                                            <form:input path="phone" class="form-control" placeholder="手机" />
-                                        </div>
+                                    <div class="col-sm-8">
+                                        <input id="phone" class="form-control" placeholder="手机" />
+
                                     </div>
                                 </div>
+                            </div>
 
 
-                                <div class="col-xs-10 col-sm-2">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-info pull-right" onclick="search();">搜索</button>
-                                    </div>
+                            <div class="col-xs-10 col-sm-2">
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-info pull-right" onclick="search();">搜索</button>
                                 </div>
+                            </div>
 
 
-                            </form:form>
+
                         </div>
 
                         <%--<div class="box-footer">
@@ -202,7 +202,10 @@
 </body>
 </html>
 <script>
+    var _dataTable ;
+
 $(function () {
+
 var columns = [
     {
         "data": function (row, type, val, meta) {
@@ -223,9 +226,20 @@ var columns = [
         }
     }
 ];
-    App.initDataTables("/user/page", columns);
-})
+    _dataTable = App.initDataTables("/user/page", columns);
 
+});
+   function search() {
+        var username = $("#username").val();
+        var phone = $("#phone").val();
+        var email = $("#email").val();
 
-
+        var param = {
+            "username": username,
+            "phone": phone,
+            "email": email
+        };
+        _dataTable.settings()[0].ajax.data = param;
+       _dataTable.ajax.reload();
+    };
 </script>

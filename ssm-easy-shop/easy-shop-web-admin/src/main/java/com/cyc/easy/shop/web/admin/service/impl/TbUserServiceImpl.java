@@ -82,12 +82,12 @@ public class TbUserServiceImpl implements TbUserService {
     }
 
     @Override
-    public PageInfo<TbUser> page(int start, int length, int draw) {
-        Map<String, Integer> params = new HashMap<String, Integer>();
+    public PageInfo<TbUser> page(int start, int length, int draw,TbUser user) {
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("start", start);
         params.put("length", length);
-
-        int count = tbUserDao.count();
+        params.put("tbUser", user);
+        int count = tbUserDao.count(user);
 
         PageInfo<TbUser> result = new PageInfo<TbUser>();
         result.setData(tbUserDao.page(params));
@@ -95,10 +95,6 @@ public class TbUserServiceImpl implements TbUserService {
         result.setRecordsFiltered(count);
         result.setRecordsTotal(count);
         return result;
-    }
-    @Override
-    public Integer count(){
-        return tbUserDao.count();
     }
 
     /**

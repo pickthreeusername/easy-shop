@@ -18,7 +18,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-primary" id="btn_modal_confirm">确定</button>
+                <button type="button" class="btn btn-primary" id="btn_modal_ok">确定</button>
             </div>
         </div>
         <!-- /.modal-content -->

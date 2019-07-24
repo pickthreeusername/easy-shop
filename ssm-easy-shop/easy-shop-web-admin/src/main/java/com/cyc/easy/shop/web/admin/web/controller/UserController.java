@@ -109,7 +109,7 @@ public class UserController {
 
     @RequestMapping(value = "page", method = RequestMethod.GET)
     @ResponseBody
-    public PageInfo<TbUser> page(HttpServletRequest request) {
+    public PageInfo<TbUser> page(HttpServletRequest request,TbUser user) {
         String strDraw = request.getParameter("draw");
         String strStart = request.getParameter("start");
         String strLength = request.getParameter("length");
@@ -118,7 +118,7 @@ public class UserController {
         int length = strStart == null ? 10 : Integer.valueOf(strLength);
         int draw = strDraw == null ? 0 : Integer.valueOf(strDraw);
 
-        PageInfo<TbUser> result = userService.page(start, length, draw);
+        PageInfo<TbUser> result = userService.page(start, length, draw, user);
         return result;
     }
 
