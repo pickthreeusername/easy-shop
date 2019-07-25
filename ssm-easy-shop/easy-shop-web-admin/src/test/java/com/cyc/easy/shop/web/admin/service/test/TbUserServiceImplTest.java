@@ -10,21 +10,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.DigestUtils;
 
 import java.util.Date;
-import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration({"classpath:springcontext.xml","classpath:springcontext-druid.xml","classpath:springcontext-mybatis.xml"})
 public class TbUserServiceImplTest {
     @Autowired
     private TbUserService userService;
-    @Test
-    public void testSelectAll() {
-        List<TbUser> userList = userService.selectAll();
-        for (TbUser user : userList) {
-            System.out.println(user);
-        }
 
-    }
     @Test
     public void  testInsert() {
         TbUser user = new TbUser();

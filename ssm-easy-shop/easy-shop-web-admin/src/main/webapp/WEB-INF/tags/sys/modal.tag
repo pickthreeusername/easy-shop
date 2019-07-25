@@ -2,8 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ attribute name="title" type="java.lang.String" required="false"  description="模态框标题" %>
 <%@ attribute name="message" type="java.lang.String" required="false"  description="模态框内容" %>
-<%@ attribute name="opts" type="java.lang.String" required="false"  description="操作：info：提示，confirm：确认删除" %>
-<%@ attribute name="url" type="java.lang.String" required="false"  description="确认删除时跳转地址" %>
 
 <div class="modal fade" id="modal-default">
     <div class="modal-dialog">
@@ -17,7 +15,7 @@
                 <p id="modal_message">${message}&hellip;</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal" id="btn_modal_cancel">取消</button>
                 <button type="button" class="btn btn-primary" id="btn_modal_ok">确定</button>
             </div>
         </div>

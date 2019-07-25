@@ -1,11 +1,12 @@
 var App = function () {
     //iCheck
+    //顶部checkbox
     var _checkBoxMaster;
     var _checkBoxList;
-    //标志模态框确定按钮是否绑定，如果绑定多次，会执行多次绑定事件
-    var _ifBind = false;
 
+    //删除路径
     var deleteUrl;
+    //存放要删除的id数组
     var idArray;
     /**
      * 初始化iCheck
@@ -24,7 +25,7 @@ var App = function () {
         _checkBoxMaster = $('input[type="checkbox"].icheck_master');
         _checkBoxList = $("tbody").find("[type='checkbox']").not("[disabled]");
         _checkBoxMaster.on("ifClicked",function (e) {
-            //未选中
+            //顶部checkbox的e.target.checked为true，未选中，所有checkbox设置为不选中
             if (e.target.checked) {
                 _checkBoxList.iCheck("uncheck");
             }
@@ -90,22 +91,29 @@ var App = function () {
         return _dataTable;
 
     };
+
     /**
-     * 批量删除
+     * 删除操作
+     * @param url 删除路径
+     * @param id 单个删除时传入的id
      */
-    var deleteMulti = function (url) {
-        $("#btn_modal_confirm").show();
-        //var _checkBoxes = App.getCheckBoxList();
+    var handlerDelete = function (url, id) {
         deleteUrl = url;
         idArray = new Array();
-
-        _checkBoxList.each(function () {
-            var _id = $(this).attr("id");
-            //将选中元素的id放入数组中
-            if($(this).is(":checked") && _id != null && _id != "undefined" ){
-                idArray.push($(this).attr("id"));
-            }
-        });
+        //没有传入单个id，说明是批量删除
+        if (isNaN(id)){
+            _checkBoxList.each(function () {
+                var _id = $(this).attr("id");
+                //将选中元素的id放入数组中
+                if($(this).is(":checked") && _id != null && _id != "undefined" ){
+                    idArray.push($(this).attr("id"));
+                }
+            });
+        }
+        //单个删除
+        else{
+            idArray.push(id);
+        }
         var message;
         if (idArray.length === 0) {
             message = "尚未选择要删除的数据";
@@ -114,28 +122,23 @@ var App = function () {
             message = "确定删除选中数据？"
         }
         $("#modal_message").html(message);
+        //显示模态框，提示用户
         $("#modal-default").modal("show");
-
-       /* if (_ifBind == false){
-            _ifBind = true;
-            $("#btn_modal_confirm").on("click", function (url) {
-                modalBtnClick(url);
-            })
-        }*/
+        $("#btn_modal_cancel").show();
+        //解绑确定按钮的点击事件，避免事件叠加造成重复执行
         $("#btn_modal_ok").off("click");
         $("#btn_modal_ok").on("click", function () {
             modalBtnClick(url);
         })
 
     }
-     //确定按钮的点击事件
+     //删除时 确定按钮的点击事件
     var modalBtnClick = function (url) {
-        console.log("test binding....");
         //没选择数据,隐藏模态框
         if (idArray.length === 0){
             $("#modal-default").modal("hide");
         }
-
+        //否则ajax异步删除
         else{
             $.ajax({
                 url:url,
@@ -143,20 +146,26 @@ var App = function () {
                 data:{"ids":idArray.toString()},
                 dataType:"JSON",
                 success:function (result) {
-                    console.log(result);
+
+                    //解绑确定按钮的点击事件，避免事件叠加造成重复执行
+                    $("#btn_modal_ok").off("click");
                     //插入提示信息
                     $("#modal_message").html(result.message);
+
+                    $("#modal-default").modal("show");
+                    //无论删除是否成功，隐藏取消按钮，只显示确定按钮
+                    $("#btn_modal_cancel").hide();
+
                     if (result.status === 200) {
-                        idArray = new Array();
-                        $("#modal-default").modal("show");
-                        window.setTimeout("window.location.reload()", 500);
-                        //提示删除成功
 
-
+                        $("#btn_modal_ok").on("click",function () {
+                            window.location.reload();
+                        });
                     }
                     else{
-                        //隐藏确定按钮
-                        $("#btn_modal_confirm").hide();
+                        $("#btn_modal_ok").on("click",function () {
+                            $("#modal-default").modal("hide");
+                        });
                     }
 
                 }
@@ -166,39 +175,42 @@ var App = function () {
 
 
     /**
-     * 查看详情
+     * 查看详情,ajax的html请求，将页面装载进模态框中
      */
     var handlerDetailInfo = function(detailUrl) {
+
         $.ajax({
             "url":detailUrl,
             "type":"GET",
             "dataType":"html",
             success:function (data) {
-                $("#modal-detail").modal("show");
                 var message = $("#modal-detail").find(".modal-body");
                 message.html(data);
+                $("#modal-detail").modal("show");
             }
         })
     }
     return{
+        //初始化
         init:function () {
             handlerInitCheckbox();
             handlerSelectAll();
         },
-        getCheckBoxList:function () {
-            return _checkBoxList;
+        //删除数据
+        deleteData:function (url, id) {
+            handlerDelete(url, id);
         },
-        deleteMulti:function (url) {
-            deleteMulti(url);
-        },
+        //初始化dataTable
         initDataTables: function (url, columns) {
             return handlerInitDataTables(url, columns);
 
         },
+        //查看详情
         detailInfo: function (detailUrl) {
             handlerDetailInfo(detailUrl);
 
-        }
+        },
+
 
 
     }

@@ -15,26 +15,26 @@
                     <tbody>
                         <tr>
                             <td>ID</td>
-                            <td>${user.id}</td>
+                            <td>${tbUser.id}</td>
                         </tr>
                         <tr>
                             <td>邮箱</td>
-                            <td>${user.email}</td>
+                            <td>${tbUser.email}</td>
                         </tr>
                         <tr>
                             <td>手机号</td>
-                            <td>${user.phone}</td>
+                            <td>${tbUser.phone}</td>
                         </tr>
                         <tr>
                             <td>创建时间</td>
                             <td>
-                                <fmt:formatDate value="${user.created}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+                                <fmt:formatDate value="${tbUser.created}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
                             </td>
                         </tr>
                         <tr>
                             <td>更新时间</td>
                             <td>
-                                <fmt:formatDate value="${user.updated}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+                                <fmt:formatDate value="${tbUser.updated}" pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
 
                             </td>
                         </tr>

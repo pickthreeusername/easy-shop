@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 @Controller
 @RequestMapping("user")
@@ -24,7 +23,7 @@ public class UserController {
     private TbUserService userService;
 
     /**
-     * 将TbUser封装近表单模型对象
+     * 将TbUser封装进模型对象
      *
      * @param id
      * @return
@@ -48,8 +47,6 @@ public class UserController {
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model) {
-        List<TbUser> tbUsers = userService.selectAll();
-        model.addAttribute("tbUsers", tbUsers);
         return "user_list";
     }
 
@@ -81,20 +78,10 @@ public class UserController {
     }
 
     /**
-     * 根据条件搜索
-     *
-     * @param user
-     * @param model
+     * 删除用户
+     * @param ids
      * @return
      */
-    @RequestMapping(value = "search", method = RequestMethod.GET)
-    public String search(TbUser user, Model model) {
-        List<TbUser> tbUsers = userService.search(user);
-        model.addAttribute("tbUsers", tbUsers);
-        System.out.println("test hot deploy.....");
-        return "user_list";
-    }
-
     @RequestMapping(value = "delete", method = RequestMethod.POST)
     @ResponseBody
     public BaseResult delete(String ids) {
@@ -107,6 +94,12 @@ public class UserController {
         return BaseResult.fail("删除失败");
     }
 
+    /**
+     * 用户列表分页
+     * @param request
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "page", method = RequestMethod.GET)
     @ResponseBody
     public PageInfo<TbUser> page(HttpServletRequest request,TbUser user) {
@@ -122,11 +115,15 @@ public class UserController {
         return result;
     }
 
+    /**
+     * 查看详情
+     * @param user
+     * @param model
+     * @return
+     */
     @RequestMapping(value = "detail", method = RequestMethod.GET)
     public String detail(TbUser user, Model model) {
-        System.out.println("detail..........");
-        System.out.println(user.toString());
-        model.addAttribute("user", user);
+        //在执行@RequestMapping方法之前， @ModelAttribute的方法已经把user绑定到model中了
         return "user_detail";
     }
 

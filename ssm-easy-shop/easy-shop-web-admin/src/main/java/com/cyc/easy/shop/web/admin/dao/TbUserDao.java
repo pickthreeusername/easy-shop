@@ -8,11 +8,7 @@ import java.util.Map;
 
 @Repository
 public interface TbUserDao {
-    /**
-     * 用户列表
-     * @return
-     */
-    public List<TbUser> selectAll();
+
 
     /**
      * 根据email查询用户信息
@@ -33,11 +29,7 @@ public interface TbUserDao {
      */
     public int update(TbUser user);
 
-    /**
-     * 根据Id删除用户
-     * @param id
-     */
-    public int delete(long id);
+
 
     /**
      * 根据Id查询用户
@@ -46,12 +38,7 @@ public interface TbUserDao {
      */
     public TbUser getUserById(long id);
 
-    /**
-     * 根据条件搜索用户信息
-     * @param tbUser
-     * @return
-     */
-    public List<TbUser> search(TbUser tbUser);
+
 
     /**
      * 批量删除用户
@@ -66,5 +53,10 @@ public interface TbUserDao {
      */
     public List<TbUser> page(Map<String, Object> map);
 
+    /**
+     * 符合条件的总条数
+     * @param user
+     * @return
+     */
     public Integer count(TbUser user);
 }

@@ -19,10 +19,6 @@ import java.util.Map;
 public class TbUserServiceImpl implements TbUserService {
     @Autowired
     private TbUserDao tbUserDao;
-    @Override
-    public List<TbUser> selectAll() {
-        return tbUserDao.selectAll();
-    }
 
     @Override
     public TbUser login(String email, String password) {
@@ -61,20 +57,13 @@ public class TbUserServiceImpl implements TbUserService {
         return result;
     }
 
-    @Override
-    public int delete(int id) {
-        return tbUserDao.delete(id);
-    }
 
     @Override
     public TbUser getUserById(long id) {
         return tbUserDao.getUserById(id);
     }
 
-    @Override
-    public List<TbUser> search(TbUser tbUser) {
-        return tbUserDao.search(tbUser);
-    }
+
 
     @Override
     public void deleteMulti(String[] ids) {

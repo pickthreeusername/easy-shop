@@ -110,7 +110,7 @@
 
                         <div class="box-body"><%--App.deleteMulti('/user/delete')--%>
                             <a href="/user/form" type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i> 新增</a>&nbsp;&nbsp;&nbsp;
-                            <button type="button" class="btn btn-sm btn-default" onclick="App.deleteMulti('/user/delete')"><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="btn btn-sm btn-default" onclick="App.deleteData('/user/delete')"><i class="fa fa-trash-o"></i> 删除</button>&nbsp;&nbsp;&nbsp;
                             <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-download"></i> 导入</a>&nbsp;&nbsp;&nbsp;
                             <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-upload"></i> 导出</a>&nbsp;&nbsp;&nbsp;
                             <button type="button" class="btn btn-sm btn-primary" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('fast') : $('.box-info-search').hide('fast')"><i class="fa fa-search"></i> 搜索</button>
@@ -135,25 +135,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                            <%--        <c:forEach items="${tbUsers}" var="user">
-                                        <tr>
-                                            <td>
-                                                <label>
-                                                    <input type="checkbox" class="minimal" id="${user.id}"/>
-                                                </label>
-                                            </td>
-                                            <td>${user.id}</td>
-                                            <td>${user.username}</td>
-                                            <td>${user.phone}</td>
-                                            <td>${user.email}</td>
-                                            <td><fmt:formatDate value="${user.updated}" pattern="yyyy-MM-dd" /></td>
-                                            <td>
-                                                <button type="button" class="btn btn-sm btn-default" ><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;
-                                                <a href="/user/form?id=' + row.id + '" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
-                                                <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#modal-danger"><i class="fa fa-trash-o"></i> 删除</button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>--%>
 
                                 </tbody>
 
@@ -220,9 +201,10 @@ var columns = [
     {
         "data": function (row, type, val, meta) {
             var detailUrl = "/user/detail?id=" + row.id;
+            var deleteUrl = "/user/delete"
             return '<button type="button" class="btn btn-sm btn-default" onclick="App.detailInfo(\''+ detailUrl +'\');"><i class="fa fa-search"></i> 查看</button>&nbsp;&nbsp;&nbsp;' +
                 '<a href="/user/form?id=' + row.id + '" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;' +
-                '<a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i> 删除</a>'
+                '<button  type="button" class="btn btn-sm btn-danger" onclick="App.deleteData(\''+ deleteUrl + '\',' + row.id +')"><i class="fa fa-trash-o"></i> 删除</button>'
         }
     }
 ];
@@ -242,4 +224,6 @@ var columns = [
         _dataTable.settings()[0].ajax.data = param;
        _dataTable.ajax.reload();
     };
+
+
 </script>
