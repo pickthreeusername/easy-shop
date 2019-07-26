@@ -1,10 +1,12 @@
 package com.cyc.easy.shop.domain;
 
 import com.cyc.easy.shop.commons.persistence.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class TbUser extends BaseEntity {
 
     private String username;
+    @JsonIgnore
     private String password;
     private String email;
     private String phone;

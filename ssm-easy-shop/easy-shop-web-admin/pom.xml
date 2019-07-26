@@ -17,16 +17,7 @@
     <description></description>
 
     <dependencies>
-        <!-- Json Begin -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-        </dependency>
-        <!-- Json end -->
+
         <!-- easy shop begin -->
         <dependency>
             <groupId>com.cyc</groupId>

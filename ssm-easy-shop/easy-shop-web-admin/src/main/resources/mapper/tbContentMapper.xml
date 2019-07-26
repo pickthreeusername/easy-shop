@@ -2,16 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cyc.easy.shop.web.admin.dao.TbContentDao">
     <sql id="tbContentColumns">
-     c.id
-     c.category_id AS categoryId
-     c.title
-     c.sub_title AS subTitle
-     c.title_desc AS titleDesc
-     c.url
-     c.pic
-     c.pic2
-     c.content
-     c.created
+     c.id,
+     c.category_id AS categoryId,
+     c.title,
+     c.sub_title AS subTitle,
+     c.title_desc AS titleDesc,
+     c.url,
+     c.pic,
+     c.pic2,
+     c.content,
+     c.created,
      c.updated
     </sql>
 

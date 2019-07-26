@@ -41,6 +41,7 @@ var App = function () {
      */
     var handlerInitDataTables = function (url, columns) {
         var _dataTable = $("#dataTable").DataTable({
+            "autoWidth": false,
             "paging": true,
             "ordering": false,
             "info": true,
@@ -91,6 +92,36 @@ var App = function () {
         return _dataTable;
 
     };
+    /**
+     * 初始化化zTree
+     */
+    var handlerInitzTree = function (url, param, callback) {
+
+        var setting = {
+            view: {
+                selectedMulti: false
+            },
+            async: {
+                enable: true,
+                url:url,
+                autoParam:param
+
+            }
+        };
+        $.fn.zTree.init($("#myTree"), setting);
+        $("#btn_modal_ok").bind("click", function () {
+            var zTree = $.fn.zTree.getZTreeObj("myTree");
+            var nodes = zTree.getSelectedNodes();
+            if (nodes.length == 0) {
+                alert("请先选择一个父节点");
+            }
+            else{
+                callback(nodes);
+            }
+        });
+
+    };
+
 
     /**
      * 删除操作
@@ -210,9 +241,11 @@ var App = function () {
             handlerDetailInfo(detailUrl);
 
         },
+        //初始化zTree
+        initzTree: function (url, param, callback) {
+            handlerInitzTree(url, param, callback);
 
-
-
+        }
     }
 }();
 $(document).ready(function () {

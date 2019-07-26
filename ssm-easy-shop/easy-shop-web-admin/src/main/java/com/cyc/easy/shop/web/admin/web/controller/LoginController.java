@@ -51,7 +51,7 @@ public class LoginController {
             return "login";
         } else {
             if (ifRememberFlag) {
-                CookieUtils.setCookie(req, resp, COOKIE_NAME_USER_INFO, String.format("%s:%s", email, password));
+                CookieUtils.setCookie(req, resp, COOKIE_NAME_USER_INFO, String.format("%s:%s", email, password), 7 * 24 * 60 * 60);
             } else {
                 CookieUtils.deleteCookie(req, resp, COOKIE_NAME_USER_INFO);
             }

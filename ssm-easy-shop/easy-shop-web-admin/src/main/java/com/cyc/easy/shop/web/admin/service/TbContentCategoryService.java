@@ -10,4 +10,16 @@ public interface TbContentCategoryService {
      * @return
      */
     public List<TbContentCategory> selectAll();
+    /**
+     * 根据父id查找类别
+     * @param pid
+     * @return
+     */
+    public List<TbContentCategory> selectByPid(Long pid);
+    /**
+     * 根据 ID 查找分类
+     * @param id
+     * @return
+     */
+    public TbContentCategory getCategoryById(Long id);
 }

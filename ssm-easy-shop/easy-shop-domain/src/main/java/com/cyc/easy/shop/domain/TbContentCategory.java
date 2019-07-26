@@ -1,6 +1,7 @@
 package com.cyc.easy.shop.domain;
 
 import com.cyc.easy.shop.commons.persistence.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class TbContentCategory extends BaseEntity {
 
@@ -8,6 +9,7 @@ public class TbContentCategory extends BaseEntity {
     private String name;
     private Integer status;
     private Integer sortOrder;
+    @JsonProperty(value = "isParent")
     private boolean isParent;
 
     public Long getParentId() {
