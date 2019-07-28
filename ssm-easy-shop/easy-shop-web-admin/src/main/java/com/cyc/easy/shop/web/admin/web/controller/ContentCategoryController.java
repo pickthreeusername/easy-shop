@@ -79,6 +79,16 @@ public class ContentCategoryController {
     @RequestMapping(value = "tree/data")
     @ResponseBody
     public List<TbContentCategory> treeData(Long id) {
+       /* System.out.println(currentCategoryId + ".................");
+        //当前编辑的所属类别id 不为空
+        if (currentCategoryId != null) {
+            List<TbContentCategory> categories = new ArrayList<TbContentCategory>();
+            TbContentCategory category = categoryService.getCategoryById(currentCategoryId);
+            categories.add(category);
+            return categories;
+
+        }*/
+        System.out.println("testing for jrebel.............");
         if (id == null) {
             id = 0L;
         }

@@ -8,6 +8,40 @@ var App = function () {
     var deleteUrl;
     //存放要删除的id数组
     var idArray;
+    //dropzone默认配置
+    var defaultDropzoneOpts = {
+        url: "upload/fileUpload", // 文件提交地址
+        method: "post",  // 也可用put
+        paramName: "dropzFile", // 默认为file
+        maxFiles: 1,// 一次性上传的文件数量上限
+        maxFilesize: 2, // 文件大小，单位：MB
+        acceptedFiles: ".jpg,.gif,.png,.jpeg", // 上传的类型
+        addRemoveLinks: true,
+        parallelUploads: 1,// 一次上传的文件数量
+        //previewsContainer:"#preview", // 上传图片的预览窗口
+        dictRemoveFile: '删除',
+        dictDefaultMessage: '拖动文件至此或者点击上传',
+        dictMaxFilesExceeded: "您最多只能上传1个文件！",
+        dictResponseError: '文件上传失败!',
+        dictInvalidFileType: "文件类型只能是*.jpg,*.gif,*.png,*.jpeg。",
+        dictFallbackMessage: "浏览器不受支持",
+        dictFileTooBig: "文件过大上传文件最大支持.",
+        dictCancelUpload: "取消",
+        init: function () {
+            this.on("addedfile", function (file) {
+                // 上传文件时触发的事件
+            });
+            this.on("success", function (file, data) {
+                // 上传成功触发的事件
+            });
+            this.on("error", function (file, data) {
+                // 上传失败触发的事件
+            });
+            this.on("removedfile", function (file) {
+                // 删除文件时触发的方法
+            });
+        }
+    };
     /**
      * 初始化iCheck
      */
@@ -105,7 +139,6 @@ var App = function () {
                 enable: true,
                 url:url,
                 autoParam:param
-
             }
         };
         $.fn.zTree.init($("#myTree"), setting);
@@ -204,6 +237,19 @@ var App = function () {
         }
     }
 
+    /**
+     * 初始化dropzone
+     * @param dropzId dropzone元素id
+     * @param options dropzone配制对象
+     */
+    var handlerInitDropzone = function (dropzId, options) {
+        //关闭自动发现
+        Dropzone.autoDiscover = false;
+        //重写默认配置
+        $.extend(defaultDropzoneOpts, options);
+        $(dropzId).dropzone(defaultDropzoneOpts);
+    }
+
 
     /**
      * 查看详情,ajax的html请求，将页面装载进模态框中
@@ -244,7 +290,10 @@ var App = function () {
         //初始化zTree
         initzTree: function (url, param, callback) {
             handlerInitzTree(url, param, callback);
-
+        },
+        //初始化 dropzone
+        initDropzone: function (dropzId, options) {
+            handlerInitDropzone(dropzId, options);
         }
     }
 }();

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @Controller
 @RequestMapping("content")
@@ -111,6 +112,12 @@ public class ContentController {
         int draw = strDraw == null ? 0 : Integer.valueOf(strDraw);
 
         PageInfo<TbContent> result = contentService.page(start, length, draw, content);
+//        //设置图片完整相对路径
+//        List<TbContent> contents = result.getData();
+//        for (TbContent tbContent : contents) {
+//            tbContent.setPic("/static/upload/" + tbContent.getPic());
+//        }
+
         return result;
     }
 

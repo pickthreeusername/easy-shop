@@ -35,10 +35,20 @@
         <mybatis-spring.version>1.3.1</mybatis-spring.version>
         <junit.version>4.12</junit.version>
         <jackson.version>2.9.5</jackson.version>
+        <lombok.version>1.16.18</lombok.version>
+        <hibernate-validator.version>5.3.4.Final</hibernate-validator.version>
+        <commons-fileupload.version>1.3.2</commons-fileupload.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <!-- lombok begin-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <!-- lombok end-->
             <!-- Json Begin -->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
@@ -143,6 +153,11 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-connector.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-validator</artifactId>
+                <version>${hibernate-validator.version}</version>
+            </dependency>
             <!--Database end -->
 
             <!-- mybatis begin -->
@@ -163,6 +178,13 @@
             </dependency>
             <!-- mybatis end -->
 
+            <!-- commons-fileupload begin -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
+            </dependency>
+            <!-- commons-fileupload end-->
 
         </dependencies>
     </dependencyManagement>

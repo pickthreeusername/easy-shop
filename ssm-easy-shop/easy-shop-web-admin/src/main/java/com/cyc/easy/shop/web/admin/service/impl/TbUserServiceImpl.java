@@ -2,6 +2,7 @@ package com.cyc.easy.shop.web.admin.service.impl;
 
 import com.cyc.easy.shop.commons.dto.BaseResult;
 import com.cyc.easy.shop.commons.dto.PageInfo;
+import com.cyc.easy.shop.commons.validator.BeanValidator;
 import com.cyc.easy.shop.domain.TbUser;
 import com.cyc.easy.shop.web.admin.dao.TbUserDao;
 import com.cyc.easy.shop.web.admin.service.TbUserService;
@@ -34,8 +35,14 @@ public class TbUserServiceImpl implements TbUserService {
 
     @Override
     public BaseResult save(TbUser user) {
-        BaseResult result = checkUser(user);
-        if (result.getStatus() == BaseResult.STATUS_SUCCESS) {
+
+        String validator = BeanValidator.validator(user);
+        //验证不通过
+        if (validator != null){
+            return BaseResult.fail(validator);
+        }
+        //验证通过
+        else {
             String message = null;
             user.setUpdated(new Date());
             user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
@@ -51,10 +58,10 @@ public class TbUserServiceImpl implements TbUserService {
                 message = "编辑成功";
             }
 
-            result = BaseResult.success(message);
+            return BaseResult.success(message);
         }
 
-        return result;
+
     }
 
 
@@ -86,34 +93,6 @@ public class TbUserServiceImpl implements TbUserService {
         return result;
     }
 
-    /**
-     * 验证用户信息
-     * @param user
-     * @return
-     */
-    private BaseResult checkUser(TbUser user) {
-        int status = BaseResult.STATUS_SUCCESS;
-        String message = null;
-        //验证邮箱
-        if (StringUtils.isBlank(user.getEmail())) {
-            status = BaseResult.STATUS_FAIL;
-            message = "用户邮箱不能为空，请重新输入";
-        }
 
-        else if (StringUtils.isBlank(user.getPassword())) {
-            status = BaseResult.STATUS_FAIL;
-            message = "登录密码不能为空，请重新输入";
-        }
-
-        else if (StringUtils.isBlank(user.getUsername())) {
-            status = BaseResult.STATUS_FAIL;
-            message = "用户姓名不能为空，请重新输入";
-        }
-        else if (StringUtils.isBlank(user.getPhone())) {
-            status = BaseResult.STATUS_FAIL;
-            message = "用户手机号不能为空，请重新输入";
-        }
-        return BaseResult.createResult(status, message);
-    }
 
 }

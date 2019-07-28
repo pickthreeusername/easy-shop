@@ -34,10 +34,6 @@
         <!-- Spring Begin -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
         <!-- Spring end -->
@@ -81,7 +77,12 @@
             <version>${junit.version}</version>
         </dependency>
         <!-- Test End -->
-
+        <!-- commons-fileupload begin -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+        </dependency>
+        <!-- commons-fileupload end-->
     </dependencies>
 
 </project>

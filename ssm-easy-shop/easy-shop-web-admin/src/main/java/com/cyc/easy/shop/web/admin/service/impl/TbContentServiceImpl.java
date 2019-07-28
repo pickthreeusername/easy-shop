@@ -2,6 +2,7 @@ package com.cyc.easy.shop.web.admin.service.impl;
 
 import com.cyc.easy.shop.commons.dto.BaseResult;
 import com.cyc.easy.shop.commons.dto.PageInfo;
+import com.cyc.easy.shop.commons.validator.BeanValidator;
 import com.cyc.easy.shop.domain.TbContent;
 import com.cyc.easy.shop.domain.TbUser;
 import com.cyc.easy.shop.web.admin.dao.TbContentDao;
@@ -27,8 +28,12 @@ public class TbContentServiceImpl implements TbContentService {
 
     @Override
     public BaseResult save(TbContent content) {
-        BaseResult result = checkContent(content);
-        if (result.getStatus() == BaseResult.STATUS_SUCCESS) {
+        String validator = BeanValidator.validator(content);
+        //验证不通过
+        if (validator != null) {
+            return BaseResult.fail(validator);
+        }
+        else{
             String message = null;
             content.setUpdated(new Date());
             //新增操作
@@ -43,10 +48,9 @@ public class TbContentServiceImpl implements TbContentService {
                 message = "编辑成功";
             }
 
-            result = BaseResult.success(message);
+            return BaseResult.success(message);
         }
 
-        return result;
     }
 
     @Override
@@ -80,37 +84,4 @@ public class TbContentServiceImpl implements TbContentService {
         return contentDao.count(content);
     }
 
-    /**
-     * 验证content信息
-     * @param content
-     * @return
-     */
-    private BaseResult checkContent(TbContent content) {
-        int status = BaseResult.STATUS_SUCCESS;
-        String message = null;
-        //验证邮箱
-        if (content.getCategoryId() != null) {
-            status = BaseResult.STATUS_FAIL;
-            message = "分类id不能为空，请重新输入";
-        }
-
-        else if (StringUtils.isBlank(content.getTitle())) {
-            status = BaseResult.STATUS_FAIL;
-            message = "内容标题不能为空，请重新输入";
-        }
-
-        else if (StringUtils.isBlank(content.getSubTitle())) {
-            status = BaseResult.STATUS_FAIL;
-            message = "副标题不能为空，请重新输入";
-        }
-        else if (StringUtils.isBlank(content.getTitleDesc())) {
-            status = BaseResult.STATUS_FAIL;
-            message = "标题描述不能为空，请重新输入";
-        }
-        else if (StringUtils.isBlank(content.getContent())) {
-            status = BaseResult.STATUS_FAIL;
-            message = "内容详情不能为空，请重新输入";
-        }
-        return BaseResult.createResult(status, message);
-    }
 }

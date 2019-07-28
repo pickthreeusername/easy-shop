@@ -18,6 +18,24 @@
     <description></description>
 
     <dependencies>
+        <!-- Spring Begin -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <!-- Spring end -->
+        <!-- validator begin-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+        <!-- validator end-->
+        <!-- lombok begin-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!-- lombok end-->
         <!-- Commons Begin -->
         <dependency>
             <groupId>org.apache.commons</groupId>

@@ -1,78 +1,28 @@
 package com.cyc.easy.shop.domain;
 
 import com.cyc.easy.shop.commons.persistence.BaseEntity;
+import lombok.Data;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
+import javax.validation.constraints.NotNull;
+
+@Data
 public class TbContent extends BaseEntity {
+    @NotNull(message = "所属类目不能为空")
     private Long categoryId;
+    @Length(min = 1, max = 20, message = "标题必须介于 1 - 20 个字符之间")
     private String title;
+    @Length(min = 1, max = 20, message = "副标题必须介于 1 - 20 个字符之间")
     private String subTitle;
+    @Length(min = 1, max = 50, message = "标题描述必须介于 1 - 50 个字符之间")
     private String titleDesc;
+
     private String url;
+
     private String pic;
     private String pic2;
+    @NotBlank(message = "内容不能为空")
     private String content;
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getSubTitle() {
-        return subTitle;
-    }
-
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
-    }
-
-    public String getTitleDesc() {
-        return titleDesc;
-    }
-
-    public void setTitleDesc(String titleDesc) {
-        this.titleDesc = titleDesc;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getPic() {
-        return pic;
-    }
-
-    public void setPic(String pic) {
-        this.pic = pic;
-    }
-
-    public String getPic2() {
-        return pic2;
-    }
-
-    public void setPic2(String pic2) {
-        this.pic2 = pic2;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
 }

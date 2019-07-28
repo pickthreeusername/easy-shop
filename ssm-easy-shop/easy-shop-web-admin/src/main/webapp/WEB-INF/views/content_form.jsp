@@ -10,6 +10,11 @@
     <title>easy shop  | content_form</title>
     <jsp:include page="../includes/header.jsp"/>
     <link rel="stylesheet" href="/static/assets/plugins/jquery-ztree/css/zTreeStyle/zTreeStyle.min.css">
+    <link rel="stylesheet" href="/static/assets/plugins/dropzone/min/dropzone.min.css">
+    <link rel="stylesheet" href="/static/assets/plugins/dropzone/min/basic.min.css">
+    <link rel="stylesheet" href="/static/assets/plugins/wangEditor/wangEditor.min.css">
+
+
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -105,7 +110,9 @@
 
                                     <div class="col-sm-10">
                                         <form:input path="pic"  placeholder="图片1" class="form-control  required" />
+                                        <div id="dropz" class="dropzone">
 
+                                        </div>
                                     </div>
                                 </div>
 
@@ -114,16 +121,18 @@
 
                                     <div class="col-sm-10">
                                         <form:input path="pic2"  placeholder="图片2" class="form-control  required" />
+                                        <div id="dropz2" class="dropzone">
 
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="content" class="col-sm-2 control-label ">详情</label>
+                                    <label  class="col-sm-2 control-label ">详情</label>
 
                                     <div class="col-sm-10">
-                                        <form:input path="content"  placeholder="详情" class="form-control  required" />
-
+                                        <form:hidden path="content"  class="form-control  required" />
+                                        <div id="editor">${tbContent.content}</div>
                                     </div>
                                 </div>
 
@@ -133,7 +142,7 @@
                             <!-- /.box-body -->
                             <div class="box-footer">
                                 <button type="button" class="btn btn-default" onclick="history.go(-1);">返回</button>
-                                <button type="submit" class="btn btn-info pull-right">提交</button>
+                                <button type="submit" class="btn btn-info pull-right" id="btn_formSubmit">提交</button>
                             </div>
                         </form:form>
 
@@ -156,12 +165,15 @@
 <%--footer--%>
 <jsp:include page="../includes/footer.jsp"/>
 <script src="/static/assets/plugins/jquery-ztree/js/jquery.ztree.core-3.5.min.js"></script>
+<script src="/static/assets/plugins/dropzone/dropzone.js"></script>
+<script src="/static/assets/plugins/wangEditor/wangEditor.min.js"></script>
 
 </body>
 </html>
 <script>
 
     $(function () {
+
 
         App.initzTree("/content/category/tree/data", ["id"], function (nodes) {
             var node = nodes[0];
@@ -170,5 +182,36 @@
             $("#modal-default").modal("hide");
         });
 
+        var E = window.wangEditor;
+        var editor = new E('#editor');
+        //一些配制：图片上传路径， 文件名
+        editor.customConfig.uploadImgServer="/upload/fileUpload";
+        editor.customConfig.uploadFileName="editorFile";
+        editor.create();
+
+        $("#btn_formSubmit").bind("click", function () {
+            var content = editor.txt.html()
+            $("#content").val(content);
+
+        });
+
+    });
+    App.initDropzone("#dropz",{
+        url: "/upload/fileUpload",
+        init: function () {
+            this.on("success", function (file, data) {
+                // 上传成功触发的事件
+                $("#pic").val(data.fileName);
+            });
+        }
+    });
+    App.initDropzone("#dropz2",{
+        url: "/upload/fileUpload",
+        init: function () {
+            this.on("success", function (file, data) {
+                // 上传成功触发的事件
+                $("#pic2").val(data.fileName);
+            });
+        }
     });
 </script>
