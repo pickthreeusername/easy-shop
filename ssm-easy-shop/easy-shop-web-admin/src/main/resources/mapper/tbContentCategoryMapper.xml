@@ -3,13 +3,21 @@
 <mapper namespace="com.cyc.easy.shop.web.admin.dao.TbContentCategoryDao">
     <sql id="contentCategoryColumns">
         c.id,
-        c.parent_id,
+        c.parent_id AS 'parent.id',
         c.name,
         c.status,
         c.sort_order as sortOrder,
-        c.is_parent as isParent,
+        c.is_parent as ifParent,
         c.created,
-        c.updated
+        c.updated,
+        IFNULL(b.name,'/') as 'parent.name'
+    </sql>
+
+    <sql id="leftJoins">
+        LEFT JOIN
+	        tb_content_category AS b
+        ON
+            c.parent_id = b.id
     </sql>
 
     <select id="selectAll" resultType="TbContentCategory">
@@ -17,8 +25,9 @@
             <include refid="contentCategoryColumns"/>
         FROM
             tb_content_category c
+        <include refid="leftJoins"/>
         ORDER BY
-            c.parent_id,c.is_parent DESC
+            c.sort_order ASC, c.is_parent DESC
 
     </select>
 
@@ -27,18 +36,55 @@
         <include refid="contentCategoryColumns"/>
         FROM
         tb_content_category c
+        <include refid="leftJoins"/>
         WHERE
         c.parent_id = #{id}
 
     </select>
 
-    <select id="getCategoryById" resultType="TbContentCategory">
+    <select id="getEntityById" resultType="TbContentCategory">
         SELECT
         <include refid="contentCategoryColumns"/>
         FROM
         tb_content_category c
+        <include refid="leftJoins"/>
         WHERE
         c.id = #{id}
 
     </select>
+
+    <insert id="insert">
+        	INSERT INTO `tb_content_category` (
+                `parent_id`,
+                `name`,
+                `status`,
+                `sort_order`,
+                `is_parent`,
+                `created`,
+                `updated`
+            )
+            VALUES
+            (
+                #{parent.id},
+                #{name},
+                1,
+                #{sortOrder},
+                #{ifParent},
+                #{created},
+                #{updated}
+            )
+    </insert>
+
+    <update id="update">
+        UPDATE `tb_content_category`
+        SET
+         `parent_id` = #{parent.id},
+         `name` = #{name},
+         `status` = #{status},
+         `sort_order` = #{sortOrder},
+         `is_parent` = #{ifParent},
+         `updated` = #{updated}
+        WHERE
+            (`id` = #{id})
+    </update>
 </mapper>

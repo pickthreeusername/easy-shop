@@ -34,7 +34,7 @@ public class UserController {
         if (id == null) {
             user = new TbUser();
         } else {
-            user = userService.getUserById(id);
+            user = userService.getEntityById(id);
         }
         return user;
     }

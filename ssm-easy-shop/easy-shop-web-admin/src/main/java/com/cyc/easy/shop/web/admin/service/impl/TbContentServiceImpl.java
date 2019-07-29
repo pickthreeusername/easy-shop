@@ -4,10 +4,8 @@ import com.cyc.easy.shop.commons.dto.BaseResult;
 import com.cyc.easy.shop.commons.dto.PageInfo;
 import com.cyc.easy.shop.commons.validator.BeanValidator;
 import com.cyc.easy.shop.domain.TbContent;
-import com.cyc.easy.shop.domain.TbUser;
 import com.cyc.easy.shop.web.admin.dao.TbContentDao;
 import com.cyc.easy.shop.web.admin.service.TbContentService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +22,16 @@ public class TbContentServiceImpl implements TbContentService {
     @Override
     public List<TbContent> selectAll() {
         return contentDao.selectAll();
+    }
+
+    @Override
+    public TbContent getEntityById(long id) {
+        return contentDao.getEntityById(id);
+    }
+
+    @Override
+    public void update(TbContent entity) {
+        contentDao.update(entity);
     }
 
     @Override
@@ -53,14 +61,15 @@ public class TbContentServiceImpl implements TbContentService {
 
     }
 
+
     @Override
-    public TbContent getContentById(long id) {
-        return contentDao.getContentById(id);
+    public void deleteMulti(String[] ids) {
+        contentDao.deleteMulti(ids);
     }
 
     @Override
-    public BaseResult deleteMulti(String[] ids) {
-        return contentDao.deleteMulti(ids);
+    public Integer count(TbContent entity) {
+        return contentDao.count(entity);
     }
 
     @Override
@@ -79,9 +88,5 @@ public class TbContentServiceImpl implements TbContentService {
         return result;
     }
 
-    @Override
-    public Integer count(TbContent content) {
-        return contentDao.count(content);
-    }
 
 }

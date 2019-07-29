@@ -65,8 +65,8 @@
                                     <label for="categoryName" class="col-sm-2 control-label ">所属类别</label>
 
                                     <div class="col-sm-10">
-                                        <input  id="categoryName" placeholder="请选择" class="form-control  required" readonly="true" data-toggle="modal" data-target="#modal-default" />
-                                        <form:hidden path="categoryId" />
+                                        <input  id="categoryName" value="${tbContent.category.name}" placeholder="请选择" class="form-control  required" readonly="true" data-toggle="modal" data-target="#modal-default" />
+                                        <form:hidden path="category.id" id="categoryId" />
                                     </div>
                                 </div>
 

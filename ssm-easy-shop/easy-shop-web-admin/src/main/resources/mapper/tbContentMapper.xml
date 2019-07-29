@@ -3,7 +3,7 @@
 <mapper namespace="com.cyc.easy.shop.web.admin.dao.TbContentDao">
     <sql id="tbContentColumns">
      c.id,
-     c.category_id AS categoryId,
+     c.category_id AS 'category.id',
      c.title,
      c.sub_title AS subTitle,
      c.title_desc AS titleDesc,
@@ -12,7 +12,15 @@
      c.pic2,
      c.content,
      c.created,
-     c.updated
+     c.updated,
+	 IFNULL(cc.name,'/') AS 'category.name'
+    </sql>
+
+    <sql id="leftJoins" >
+        LEFT JOIN
+		    tb_content_category AS cc
+	    ON 
+	        c.category_id = cc.id
     </sql>
 
     <select id="selectAll" resultType="TbContent">
@@ -20,6 +28,7 @@
         <include refid="tbContentColumns"/>
         FROM
         tb_content AS c
+        <include refid="leftJoins"/>
     </select>
 
     <insert id="insert">
@@ -36,7 +45,7 @@
             `updated`
         )
         VALUES (
-            #{categoryId},
+            #{category.id},
             #{title},
             #{subTitle},
             #{titleDesc},
@@ -51,7 +60,7 @@
 
     <update id="update">
         UPDATE `tb_content`
-        SET `category_id`=#{categoryId},
+        SET `category_id`=#{category.id},
             `title`=#{title},
             `sub_title`=#{subTitle},
             `title_desc`=#{titleDesc},
@@ -59,18 +68,19 @@
             `pic`=#{pic},
             `pic2`=#{pic2},
             `content`=#{content},
-            `updated=#{updated}
+            `updated`=#{updated}
         WHERE
             (`id` = #{id})
     </update>
 
 
 
-    <select id="getContentById" resultType="TbContent">
+    <select id="getEntityById" resultType="TbContent">
         SELECT
         <include refid="tbContentColumns"/>
         FROM
         tb_content AS c
+        <include refid="leftJoins"/>
         WHERE
         c.id = #{id}
     </select>
@@ -93,6 +103,7 @@
         <include refid="tbContentColumns"/>
         FROM
         tb_content AS c
+        <include refid="leftJoins"/>
         <where>
             <if test='tbContent.title != null and tbContent.title !=""'>
                 c.title LIKE CONCAT('%',#{tbContent.title},'%')

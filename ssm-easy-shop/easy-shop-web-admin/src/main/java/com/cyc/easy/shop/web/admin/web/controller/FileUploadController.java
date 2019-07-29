@@ -1,6 +1,5 @@
 package com.cyc.easy.shop.web.admin.web.controller;
 
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,9 +47,6 @@ public class FileUploadController {
         if (dropzFile == null) {
             // scheme:协议  servername：服务器名 port：端口号
             String serverPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
-            System.out.println(serverPath);
-            System.out.println(request.getSession().getServletContext().getRealPath("/static"));;
-            System.out.println(request.getSession().getServletContext().getContextPath());
             //返回数据格式  {"errno":0, "data":[url1,url2,...]}
             result.put("errno",0);
             result.put("data",new String[] {serverPath + UPLOAD_PATH + file.getName()});

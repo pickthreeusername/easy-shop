@@ -79,13 +79,13 @@
                                 <tbody>
                                     <c:if test="${categoryList != null}">
                                         <c:forEach items="${categoryList}" var="category">
-                                            <tr id="${category.id}" pId="${category.parentId}">
+                                            <tr id="${category.id}" pId="${category.parent.id}">
                                                 <td>${category.id}</td>
                                                 <td>${category.name}</td>
                                                 <td>
                                                     <a href="/content/category/form?id=${category.id}" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
                                                     <button  type="button" class="btn btn-sm btn-danger" ><i class="fa fa-trash-o"></i> 删除</button>
-                                                    <button  type="button" class="btn btn-sm btn-default" ><i class="fa fa fa-plus"></i> 新增下级分类</button>
+                                                    <a href='/content/category/form?parent.id=${category.id}&parent.name=${category.name}' type="button" class="btn btn-sm btn-default" ><i class="fa fa fa-plus"></i> 新增下级分类</a>
                                                 </td>
                                             </tr>
                                         </c:forEach>
@@ -125,7 +125,7 @@
 <script>
     $(function () {
         $('#treeTable').treeTable({
-            expandLevel:3,
+            expandLevel:4,
             column:1
         })
     })

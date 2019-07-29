@@ -6,7 +6,6 @@ import com.cyc.easy.shop.commons.validator.BeanValidator;
 import com.cyc.easy.shop.domain.TbUser;
 import com.cyc.easy.shop.web.admin.dao.TbUserDao;
 import com.cyc.easy.shop.web.admin.service.TbUserService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -31,6 +30,11 @@ public class TbUserServiceImpl implements TbUserService {
             }
         }
         return null;
+    }
+
+    @Override
+    public void update(TbUser entity) {
+        tbUserDao.update(entity);
     }
 
     @Override
@@ -64,17 +68,28 @@ public class TbUserServiceImpl implements TbUserService {
 
     }
 
+    @Override
+    public List<TbUser> selectAll() {
+        return tbUserDao.selectAll();
+    }
 
     @Override
-    public TbUser getUserById(long id) {
-        return tbUserDao.getUserById(id);
+    public TbUser getEntityById(long id) {
+        return tbUserDao.getEntityById(id);
     }
+
+
 
 
 
     @Override
     public void deleteMulti(String[] ids) {
         tbUserDao.deleteMulti(ids);
+    }
+
+    @Override
+    public Integer count(TbUser entity) {
+        return tbUserDao.count(entity);
     }
 
     @Override

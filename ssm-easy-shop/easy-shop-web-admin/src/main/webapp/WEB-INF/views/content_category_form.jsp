@@ -49,19 +49,19 @@
 
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">${tbContent.id == null?"新增":"编辑"}用户</h3>
+                            <h3 class="box-title">${tbContentCategory.id == null?"新增":"编辑"}分类</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form:form id="inputForm" cssClass="form-horizontal" action="/content/save" method="post" modelAttribute="tbContentCategory">
+                        <form:form id="inputForm" cssClass="form-horizontal" action="/content/category/save" method="post" modelAttribute="tbContentCategory">
                             <form:hidden path="id" ></form:hidden>
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="parentName" class="col-sm-2 control-label ">父级类目</label>
 
                                     <div class="col-sm-10">
-                                        <input  id="parentName" placeholder="请选择" class="form-control  required" readonly="true" data-toggle="modal" data-target="#modal-default" />
-                                        <form:hidden path="parentId" />
+                                        <input  id="parentName" placeholder="请选择" value="${tbContentCategory.parent.name}" class="form-control  required" readonly="true" data-toggle="modal" data-target="#modal-default" />
+                                        <form:hidden path="parent.id" id="parentId"/>
                                     </div>
                                 </div>
 
@@ -124,8 +124,8 @@
 
         App.initzTree("/content/category/tree/data", ["id"], function (nodes) {
             var node = nodes[0];
-            $("#categoryId").val(node.id);
-            $("#categoryName").val(node.name);
+            $("#parentId").val(node.id);
+            $("#parentName").val(node.name);
             $("#modal-default").modal("hide");
         });
 

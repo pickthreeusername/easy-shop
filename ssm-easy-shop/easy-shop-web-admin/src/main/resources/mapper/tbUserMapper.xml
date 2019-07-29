@@ -10,6 +10,12 @@
         a.created,
         a.updated
     </sql>
+    <select id="selectAll">
+        SELECT
+        <include refid="tbUserColumns"/>
+        FROM
+        tb_user AS a
+    </select>
 
     <select id="getUserByEmail" resultType="TbUser">
         SELECT
@@ -53,7 +59,7 @@
 
 
 
-    <select id="getUserById" resultType="TbUser">
+    <select id="getEntityById" resultType="TbUser">
         SELECT
         <include refid="tbUserColumns"/>
         FROM

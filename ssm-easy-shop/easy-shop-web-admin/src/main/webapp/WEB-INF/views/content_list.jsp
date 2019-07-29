@@ -128,12 +128,9 @@
                             <table id="dataTable" class="table table-hover">
                                 <thead>
                                 <tr>
-                                    <th>
-                                        <label>
-                                            <input type="checkbox" class="minimal icheck_master" />
-                                        </label>
-                                    </th>
+
                                     <th>ID</th>
+                                    <th>所属类别</th>
                                     <th>标题</th>
                                     <th>副标题</th>
                                     <th>标题描述</th>
@@ -179,12 +176,9 @@
     $(function () {
 
         var columns = [
-            {
-                "data": function (row, type, val, meta) {
-                    return '<input id="' + row.id + '" type="checkbox" class="minimal" />';
-                }
-            },
+
             {"data": "id"},
+            {"data": "category.name"},
             {"data": "title"},
             {"data": "subTitle"},
             {"data": "titleDesc"},
