@@ -4,6 +4,7 @@ import com.cyc.easy.shop.commons.dto.BaseResult;
 import com.cyc.easy.shop.commons.dto.PageInfo;
 import com.cyc.easy.shop.commons.validator.BeanValidator;
 import com.cyc.easy.shop.domain.TbContent;
+import com.cyc.easy.shop.web.admin.abstracts.AbstractBaseServiceImpl;
 import com.cyc.easy.shop.web.admin.dao.TbContentDao;
 import com.cyc.easy.shop.web.admin.service.TbContentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,24 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class TbContentServiceImpl implements TbContentService {
-    @Autowired
-    private TbContentDao contentDao;
-
-    @Override
-    public List<TbContent> selectAll() {
-        return contentDao.selectAll();
-    }
-
-    @Override
-    public TbContent getEntityById(long id) {
-        return contentDao.getEntityById(id);
-    }
-
-    @Override
-    public void update(TbContent entity) {
-        contentDao.update(entity);
-    }
+public class TbContentServiceImpl extends AbstractBaseServiceImpl<TbContent, TbContentDao> implements TbContentService {
 
     @Override
     public BaseResult save(TbContent content) {
@@ -47,12 +31,12 @@ public class TbContentServiceImpl implements TbContentService {
             //新增操作
             if (content.getId() == null) {
                 content.setCreated(new Date());
-                contentDao.insert(content);
+                dao.insert(content);
                 message = "新增内容成功";
             }
             //修改信息
             else{
-                contentDao.update(content);
+                dao.update(content);
                 message = "编辑成功";
             }
 
@@ -62,31 +46,8 @@ public class TbContentServiceImpl implements TbContentService {
     }
 
 
-    @Override
-    public void deleteMulti(String[] ids) {
-        contentDao.deleteMulti(ids);
-    }
 
-    @Override
-    public Integer count(TbContent entity) {
-        return contentDao.count(entity);
-    }
 
-    @Override
-    public PageInfo<TbContent> page(int start, int length, int draw, TbContent content) {
-        Map<String, Object> params = new HashMap<String, Object>();
-        params.put("start", start);
-        params.put("length", length);
-        params.put("tbContent", content);
-        int count = contentDao.count(content);
-
-        PageInfo<TbContent> result = new PageInfo<TbContent>();
-        result.setData(contentDao.page(params));
-        result.setDraw(draw);
-        result.setRecordsFiltered(count);
-        result.setRecordsTotal(count);
-        return result;
-    }
 
 
 }

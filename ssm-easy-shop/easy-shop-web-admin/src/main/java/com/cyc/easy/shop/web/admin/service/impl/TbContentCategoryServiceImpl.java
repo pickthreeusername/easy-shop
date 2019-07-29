@@ -4,63 +4,17 @@ import com.cyc.easy.shop.commons.dto.BaseResult;
 import com.cyc.easy.shop.commons.dto.PageInfo;
 import com.cyc.easy.shop.commons.validator.BeanValidator;
 import com.cyc.easy.shop.domain.TbContentCategory;
+import com.cyc.easy.shop.web.admin.abstracts.AbstractBaseTreeServiceImpl;
 import com.cyc.easy.shop.web.admin.dao.TbContentCategoryDao;
 import com.cyc.easy.shop.web.admin.service.TbContentCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
-public class TbContentCategoryServiceImpl implements TbContentCategoryService {
-    @Autowired
-    private TbContentCategoryDao categoryDao;
-
-    @Override
-    public List<TbContentCategory> selectAll() {
-
-        return categoryDao.selectAll();
-    }
-
-    @Override
-    public TbContentCategory getEntityById(long id) {
-        return categoryDao.getEntityById(id);
-    }
-
-    @Override
-    public void deleteMulti(String[] ids) {
-
-    }
-
-    @Override
-    public Integer count(Object entity) {
-        return null;
-    }
-
-    @Override
-    public PageInfo page(int start, int length, int draw, Object entity) {
-        return null;
-    }
-
-    @Override
-    public Integer count(TbContentCategory entity) {
-        return null;
-    }
-
-    @Override
-    public PageInfo<TbContentCategory> page(int start, int length, int draw, TbContentCategory entity) {
-        return null;
-    }
-
-    @Override
-    public List<TbContentCategory> selectByPid(Long pid) {
-        return categoryDao.selectByPid(pid);
-    }
-
-    @Override
-    public void update(TbContentCategory entity) {
-
-    }
+public class TbContentCategoryServiceImpl extends AbstractBaseTreeServiceImpl<TbContentCategory, TbContentCategoryDao> implements TbContentCategoryService {
 
     @Override
     public BaseResult save(TbContentCategory category) {
@@ -88,23 +42,23 @@ public class TbContentCategoryServiceImpl implements TbContentCategoryService {
 
                 if (!parent.getId().equals(0L)){
                     //将新增节点的父级节点 的ifParent属性更新
-                    TbContentCategory currentCategoryParent = categoryDao.getEntityById(parent.getId());
+                    TbContentCategory currentCategoryParent = dao.getEntityById(parent.getId());
                     currentCategoryParent.setIfParent(true);
-                    categoryDao.update(currentCategoryParent);
+                    dao.update(currentCategoryParent);
                 }
 
-                categoryDao.insert(category);
+                dao.insert(category);
                 message = "新增分类成功";
             }
             //修改信息
             else{
-                categoryDao.update(category);
+                dao.update(category);
                 message = "编辑成功";
             }
 
             return BaseResult.success(message);
         }
-
     }
+
 
 }

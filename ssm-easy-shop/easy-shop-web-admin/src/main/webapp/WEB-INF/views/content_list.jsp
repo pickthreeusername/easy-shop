@@ -202,7 +202,7 @@
                     if (row.pic2 == null) {
                         return "";
                     } else {
-                        return "<a href='" + row.pic + "' target='_blank'>查看</a>"
+                        return "<a href='" + row.pic2 + "' target='_blank'>查看</a>"
                     }
                 }
             },

@@ -48,6 +48,7 @@ public class ContentCategoryController {
      */
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model) {
+        System.out.println("test for jrebel.............bagaggggg");
         List<TbContentCategory> sourceList = categoryService.selectAll();
         List<TbContentCategory> targetList = new ArrayList<>();
         targetList = sort(sourceList, targetList, 0L);
