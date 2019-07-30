@@ -189,7 +189,7 @@
             },
             {
                 "data": function (row, type, val, meta) {
-                    if (row.pic == null) {
+                    if (row.pic == null || row.pic == "") {
                         return "";
                     } else {
                         return "<a href='" + row.pic + "' target='_blank'>查看</a>"
@@ -199,7 +199,7 @@
             },
             {
                 "data": function (row, type, val, meta) {
-                    if (row.pic2 == null) {
+                    if (row.pic2 == null || row.pic2 == "") {
                         return "";
                     } else {
                         return "<a href='" + row.pic2 + "' target='_blank'>查看</a>"

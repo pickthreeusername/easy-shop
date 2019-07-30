@@ -1,22 +1,21 @@
 package com.cyc.easy.shop.web.admin.service.impl;
 
 import com.cyc.easy.shop.commons.dto.BaseResult;
-import com.cyc.easy.shop.commons.dto.PageInfo;
 import com.cyc.easy.shop.commons.validator.BeanValidator;
 import com.cyc.easy.shop.domain.TbContentCategory;
 import com.cyc.easy.shop.web.admin.abstracts.AbstractBaseTreeServiceImpl;
 import com.cyc.easy.shop.web.admin.dao.TbContentCategoryDao;
 import com.cyc.easy.shop.web.admin.service.TbContentCategoryService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.List;
-
+@Transactional(readOnly = true)
 @Service
 public class TbContentCategoryServiceImpl extends AbstractBaseTreeServiceImpl<TbContentCategory, TbContentCategoryDao> implements TbContentCategoryService {
 
     @Override
+    @Transactional(readOnly = false)
     public BaseResult save(TbContentCategory category) {
         String validator = BeanValidator.validator(category);
         //验证不通过

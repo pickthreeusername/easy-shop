@@ -87,4 +87,16 @@
         WHERE
             (`id` = #{id})
     </update>
+
+    <delete id="deleteMulti" >
+        DELETE
+        FROM
+        tb_content_category
+        WHERE
+        id
+        in
+        <foreach collection="array" open="(" close=")" separator="," item="id">
+            #{id}
+        </foreach>
+    </delete>
 </mapper>

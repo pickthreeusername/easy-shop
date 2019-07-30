@@ -161,7 +161,8 @@ var App = function () {
      * @param url 删除路径
      * @param id 单个删除时传入的id
      */
-    var handlerDelete = function (url, id) {
+    var handlerDelete = function (url, id, msg) {
+        if(!msg)msg = null;
         deleteUrl = url;
         idArray = new Array();
         //没有传入单个id，说明是批量删除
@@ -183,7 +184,13 @@ var App = function () {
             message = "尚未选择要删除的数据";
 
         }else{
-            message = "确定删除选中数据？"
+            if (msg != null){
+                message = msg;
+            }
+            else{
+                message = "确定删除选中数据？"
+            }
+
         }
         $("#modal_message").html(message);
         //显示模态框，提示用户
@@ -274,8 +281,8 @@ var App = function () {
             handlerSelectAll();
         },
         //删除数据
-        deleteData:function (url, id) {
-            handlerDelete(url, id);
+        deleteData:function (url, id, msg) {
+            handlerDelete(url, id, msg);
         },
         //初始化dataTable
         initDataTables: function (url, columns) {

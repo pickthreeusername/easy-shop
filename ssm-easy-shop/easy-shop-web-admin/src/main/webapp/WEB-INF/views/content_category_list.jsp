@@ -84,7 +84,7 @@
                                                 <td>${category.name}</td>
                                                 <td>
                                                     <a href="/content/category/form?id=${category.id}" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> 编辑</a>&nbsp;&nbsp;&nbsp;
-                                                    <button  type="button" class="btn btn-sm btn-danger" ><i class="fa fa-trash-o"></i> 删除</button>
+                                                    <button onclick="App.deleteData('/content/category/delete',${category.id}, '警告：该删除操作会将包括选中类目在内的全部子类目及属于类目的内容一并删除，请谨慎操作！您还确定继续吗？');" type="button" class="btn btn-sm btn-danger" ><i class="fa fa-trash-o"></i> 删除</button>
                                                     <a href='/content/category/form?parent.id=${category.id}&parent.name=${category.name}' type="button" class="btn btn-sm btn-default" ><i class="fa fa fa-plus"></i> 新增下级分类</a>
                                                 </td>
                                             </tr>
