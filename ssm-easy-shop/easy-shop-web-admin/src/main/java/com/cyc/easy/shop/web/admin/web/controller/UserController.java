@@ -23,9 +23,6 @@ public class UserController extends AbstractBaseController<TbUser, TbUserService
      */
     @ModelAttribute
     private TbUser getUser(Long id) {
-//        if (user.getId() != null){
-//            user = service.getEntityById(user.getId());
-//        }
         TbUser user = null;
         if (id == null) {
             user = new TbUser();

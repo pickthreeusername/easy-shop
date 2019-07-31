@@ -22,8 +22,7 @@ public class FileUploadController {
         Map<String, Object> result = new HashMap<>();
         //编辑器中的图片上传，返回对应格式的数据
         if (dropzFile == null && editorFile.length > 0) {
-            // scheme:协议  servername：服务器名 port：端口号
-            String serverPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+            
             //返回数据格式  {"errno":0, "data":[url1,url2,...]}
             List<String> data = new ArrayList<String>();
             for (MultipartFile file : editorFile) {
@@ -70,6 +69,9 @@ public class FileUploadController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return UPLOAD_PATH + file.getName();
+		// scheme:协议  servername：服务器名 port：端口号
+        String serverPath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
+        // 返回文件完整路径
+        return serverPath + UPLOAD_PATH + file.getName();
     }
 }

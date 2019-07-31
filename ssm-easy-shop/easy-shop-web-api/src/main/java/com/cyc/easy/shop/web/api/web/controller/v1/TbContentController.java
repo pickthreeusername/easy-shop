@@ -21,7 +21,7 @@ public class TbContentController {
     @Autowired
     private TbContentService contentService;
 
-    @RequestMapping(value = "{category_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/ppt/{category_id}", method = RequestMethod.GET)
     public BaseResult findContentByCategoryId(@PathVariable(value = "category_id") long id) {
         List<TbContent> tbContents = contentService.selectByCategoryId(id);
         List<TbContentDTO> tbContentDTOS = null;

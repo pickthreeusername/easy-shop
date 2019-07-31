@@ -14,9 +14,17 @@ public class IndexController {
 
     @RequestMapping(value = {"", "index"}, method = RequestMethod.GET)
     public String index(Model model, long id){
-        List<TbContent> data = ContentsApi.ppt(id);
-
-        model.addAttribute("data", data);
+        requestPPT(model, id);
         return "index";
+    }
+
+    /**
+     * 请求幻灯片
+     * @param model
+     * @param id
+     */
+    private void requestPPT(Model model,long id) {
+        List<TbContent> data = ContentsApi.ppt(id);
+        model.addAttribute("ppt", data);
     }
 }
