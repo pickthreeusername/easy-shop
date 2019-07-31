@@ -17,11 +17,45 @@
     <description></description>
 
     <dependencies>
+
+
+
+        <!-- easy shop begin -->
         <dependency>
             <groupId>com.cyc</groupId>
             <artifactId>easy-shop-commons</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.cyc</groupId>
+            <artifactId>easy-shop-domain</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <!-- easy shop end -->
+
+        <!-- Spring Begin -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <!-- Spring end -->
+
+
+
+
+        <!-- Test Begin -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+        </dependency>
+        <!-- Test End -->
     </dependencies>
 
 </project>

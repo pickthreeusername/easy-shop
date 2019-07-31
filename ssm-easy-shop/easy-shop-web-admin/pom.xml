@@ -81,12 +81,7 @@
             <version>${junit.version}</version>
         </dependency>
         <!-- Test End -->
-        <!-- commons-fileupload begin -->
-        <dependency>
-            <groupId>commons-fileupload</groupId>
-            <artifactId>commons-fileupload</artifactId>
-        </dependency>
-        <!-- commons-fileupload end-->
+
     </dependencies>
 
 </project>
