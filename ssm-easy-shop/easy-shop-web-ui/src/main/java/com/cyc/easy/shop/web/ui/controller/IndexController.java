@@ -13,8 +13,9 @@ import java.util.List;
 public class IndexController {
 
     @RequestMapping(value = {"", "index"}, method = RequestMethod.GET)
-    public String index(Model model, long id){
-        requestPPT(model, id);
+    public String index(Model model){
+        //89：幻灯片类目id
+        requestPPT(model, 89);
         return "index";
     }
 
