@@ -75,7 +75,7 @@ public abstract class AbstractBaseController< T extends BaseEntity, S extends Ba
         String strLength = request.getParameter("length");
 
         int start = strStart == null ? 0 : Integer.valueOf(strStart);
-        int length = strStart == null ? 10 : Integer.valueOf(strLength);
+        int length = strLength == null ? 10 : Integer.valueOf(strLength);
         int draw = strDraw == null ? 0 : Integer.valueOf(strDraw);
 
         PageInfo<T> result = service.page(start, length, draw, entity);

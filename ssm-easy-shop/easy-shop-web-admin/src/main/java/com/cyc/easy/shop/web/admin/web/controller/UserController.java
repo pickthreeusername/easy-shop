@@ -1,6 +1,7 @@
 package com.cyc.easy.shop.web.admin.web.controller;
 
 import com.cyc.easy.shop.commons.dto.BaseResult;
+import com.cyc.easy.shop.commons.dto.PageInfo;
 import com.cyc.easy.shop.domain.TbUser;
 import com.cyc.easy.shop.web.admin.abstracts.AbstractBaseController;
 import com.cyc.easy.shop.web.admin.service.TbUserService;
@@ -9,7 +10,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.xml.stream.events.StartDocument;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("user")
@@ -52,6 +58,7 @@ public class UserController extends AbstractBaseController<TbUser, TbUserService
     public String form() {
         return "user_form";
     }
+
     @Override
     @RequestMapping(value = "save", method = RequestMethod.POST)
     public String save(TbUser user, RedirectAttributes redirectAttributes, Model model) {
@@ -72,6 +79,7 @@ public class UserController extends AbstractBaseController<TbUser, TbUserService
 
     /**
      * 查看详情
+     *
      * @return
      */
     @Override
@@ -80,5 +88,17 @@ public class UserController extends AbstractBaseController<TbUser, TbUserService
         //在执行@RequestMapping方法之前， @ModelAttribute的方法已经把user绑定到model中了
         return "user_detail";
     }
+
+    @RequestMapping(value = "testSelect2")
+    @ResponseBody
+    public Map<String, Object> testSelect2(String start, TbUser user) {
+        Map<String, Object> map = new HashMap<>();
+        PageInfo<TbUser> result = service.page(Integer.valueOf(start), 20, 0, user);
+        map.put("data",result.getData());
+        map.put("recordsTotal", result.getRecordsTotal());
+        map.put("pagination", "true");
+        return map;
+    }
+
 
 }

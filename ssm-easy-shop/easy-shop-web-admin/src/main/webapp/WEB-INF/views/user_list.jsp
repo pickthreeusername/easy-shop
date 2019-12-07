@@ -15,6 +15,7 @@
 <head>
     <title>easy shop  | user</title>
     <jsp:include page="../includes/header.jsp"/>
+    <link rel="stylesheet" href="/static/assets/css/select2.css"/>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
@@ -38,7 +39,18 @@
                 <li class="active">用户管理</li>
             </ol>
         </section>
-
+        <div>
+                        <select style="width: 200px;">
+                            <option value="">--请选择--</option>
+                            <option value="">阿里</option>
+                            <option value="">阿姨</option>
+                            <option value="">江南</option>
+                            <option value="">杭州</option>
+                            <option value="">无锡</option>
+                            <option value="">上海</option>
+                        </select>
+            <input class="singleSelect"/>
+        </div>
         <!-- Main content -->
         <section class="content">
             <div class="row">
@@ -156,17 +168,59 @@
 
 </div>
 
+
 <%--footer--%>
 <jsp:include page="../includes/footer.jsp"/>
+<script src="/static/assets/js/select2.js"></script>
 <!-- treeTable -->
 <%-- 自定义模态框标签--%>
 <sys:modal />
+
 </body>
 </html>
 <script>
     var _dataTable ;
 
 $(function () {
+    $('.singleSelect').select2({
+        ajax: {
+            type:'GET',
+            url: "/user/testSelect2",
+            dataType: 'json',
+            delay: 250,
+            data: function (term, page) {
+                return {
+                    username: term, // search term 请求参数 ， 请求框中输入的参数
+                    start: page
+                };
+            },
+            results: function (res, page) {
+
+                var data = res.data;
+                var cbData = [];
+                var len = data.length;
+                for(var i= 0; i<len; i++){
+                    var option = {"id": data[i]["id"], "text": data[i]["username"]};
+                    cbData.push(option);
+                };
+
+                return {
+                    results: cbData,//itemList
+
+                };
+            },
+            cache: true
+        },
+
+        placeholder:'请选择',//默认文字提示
+        language: "zh-CN",
+        tags: true,//允许手动添加
+        allowClear: true,//允许清空
+        escapeMarkup: function (markup) { return markup; }, // 自定义格式化防止xss注入
+        minimumInputLength: 0,//最少输入多少个字符后开始查询
+        templateResult: function formatRepo(repo){return repo.username;}, // 函数用来渲染结果
+        templateSelection: function formatRepoSelection(repo){return repo.username;} // 函数用于呈现当前的选择
+    });
 
 var columns = [
     {
