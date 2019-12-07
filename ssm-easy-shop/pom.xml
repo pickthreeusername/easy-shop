@@ -16,5 +16,6 @@
         <module>easy-shop-web-admin</module>
         <module>easy-shop-web-ui</module>
         <module>easy-shop-web-api</module>
+        <module>easy-shop-external</module>
     </modules>
 </project>

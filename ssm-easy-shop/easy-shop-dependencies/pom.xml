@@ -39,6 +39,8 @@
         <hibernate-validator.version>5.3.4.Final</hibernate-validator.version>
         <commons-fileupload.version>1.3.2</commons-fileupload.version>
         <apache-httpclient.version>4.5.5</apache-httpclient.version>
+        <kaptcha.version>2.3</kaptcha.version>
+        <commons-email.version>1.5</commons-email.version>
     </properties>
 
     <dependencyManagement>
@@ -146,6 +148,19 @@
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-email</artifactId>
+                <version>${commons-email.version}</version>
+            </dependency>
+            <!-- commons-fileupload begin -->
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>${commons-fileupload.version}</version>
+            </dependency>
+            <!-- commons-fileupload end-->
+
             <!-- Commons End -->
 
             <!--Database begin -->
@@ -184,13 +199,7 @@
             </dependency>
             <!-- mybatis end -->
 
-            <!-- commons-fileupload begin -->
-            <dependency>
-                <groupId>commons-fileupload</groupId>
-                <artifactId>commons-fileupload</artifactId>
-                <version>${commons-fileupload.version}</version>
-            </dependency>
-            <!-- commons-fileupload end-->
+
             <!-- Apache Http Begin -->
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
@@ -208,10 +217,29 @@
                 <version>${apache-httpclient.version}</version>
             </dependency>
             <!-- Apache Http End -->
+            <!-- kaptcha begin -->
+            <dependency>
+                <groupId>com.google.code.kaptcha</groupId>
+                <artifactId>kaptcha</artifactId>
+                <version>${kaptcha.version}</version>
+            </dependency>
+            <!-- kaptcha end -->
         </dependencies>
     </dependencyManagement>
 
+
+
     <build>
+        <!--管理插件版本号-->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-install-plugin</artifactId>
+                    <version>2.5.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <!-- Compiler 插件, 设定 JDK 版本 -->
             <plugin>

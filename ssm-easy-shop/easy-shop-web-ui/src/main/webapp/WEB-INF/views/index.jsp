@@ -65,7 +65,18 @@
             </li>
         </ul>
         <ul class="header-right">
-            <li class="denglu">Hi~<a class="red" href="dengl.html">请登录!</a> <a href="zhuc.html">[免费注册]</a></li>
+            <li class="denglu">Hi~
+                <c:if test="${tbUser == null}">
+                    <a class="red" href="login">请登录!</a>
+                    <a href="register">[免费注册]</a>
+                </c:if>
+
+                <c:if test="${tbUser != null}">
+                    <a  >欢迎 ${tbUser.username}&nbsp;</a>
+                    <a href="logout">[注销]</a>
+                </c:if>
+
+            </li>
             <li class="shu"></li>
             <li class="denglu"><a class="ing_ps" href="#">我的收藏</a></li>
             <li class="shu"></li>

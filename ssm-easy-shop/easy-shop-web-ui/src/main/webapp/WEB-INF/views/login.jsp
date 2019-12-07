@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html>
@@ -7,12 +8,6 @@
     <title>MyShop——登录</title>
     <link rel="stylesheet" type="text/css" href="/static/css/index.css">
     <link rel="stylesheet" type="text/css" href="/static/css/ziy.css">
-    <!--  <script src="/static/js/jquery-1.11.3.min.js" ></script>
-    <script src="/static/js/index.js" ></script>  -->
-    <!-- <script type="text/javascript" src="/static/js/jquery1.42.min.js"></script> -->
-    <!--
-    <script type="text/javascript" src="/static/js/jquery-1.11.1.min.js"></script>
-     <script type="text/javascript" src="/static/js/jquery.SuperSlide.2.1.1.source.js"></script> -->
 
 </head>
 <body>
@@ -48,22 +43,31 @@
                     </div>
                 </div>
             </div>
-            <div class="kengl_kuang">
-                <div class="txt_kuang">
-                    <input type="text" class="itxt"  placeholder="邮箱/用户名/已验证手机">
-                    <input type="text" class="itxt"  placeholder="密码">
-                </div>
-                <div class="remember">
-                    <div class="fl">
-                        <input type="checkbox" >
-                        <label for="autoLoginFlag">自动登录</label>
+            <form action="login" method="post">
+                <div class="kengl_kuang">
+                    <c:if test="${baseResult != null}">
+                        <div class="red">${baseResult.message}</div>
+                    </c:if>
+                    <div class="txt_kuang">
+
+                        <input name="username" type="text" class="itxt"  placeholder="邮箱/用户名/已验证手机">
+                        <input name="password" type="password" class="itxt"  placeholder="密码">
+                        <input style="width: 120px;" name="verification" type="text" class="itxt"  placeholder="验证码">
+                        <img id="verificationCode" src="/verification" style="padding-right: 23px;float: right;cursor: pointer;" title="看不起？换一张">
                     </div>
-                    <div class="fr">
-                        <a href="#" class="fl" target="_blank" title="忘记密码">忘记密码?</a>
+                    <div class="remember">
+                        <div class="fl">
+                            <input type="checkbox" >
+                            <label >自动登录</label>
+                        </div>
+                        <div class="fr">
+                            <a href="#" class="fl" target="_blank" title="忘记密码">忘记密码?</a>
+                        </div>
                     </div>
+                    <input type="submit" tabindex="5" value="登 录" class="btnnuw">
                 </div>
-                <input type="button" tabindex="5" value="登 录" class="btnnuw">
-            </div>
+            </form>
+
             <div class="corp_login">
                 <div class="mingb_shoq"><a href="#">名榜授权登录！</a></div>
                 <div class="regist_link"><a href="zhuc.html" target="_blank"><b></b>立即注册</a></div>
@@ -82,4 +86,13 @@
 
 </body>
 </html>
+<script src="static/js/jquery-1.11.3.min.js"></script>
+<script>
+    $(function () {
+        // 刷新验证码
+        $("#verificationCode").bind("click", function () {
+            $(this).hide().attr('src', '/verification').fadeIn();
+        });
+    });
+</script>
 
